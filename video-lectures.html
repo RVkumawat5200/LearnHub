@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Lectures - LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .video-lectures-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 20px 40px;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .video-header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: slideDown 0.6s ease;
+        }
+
+        .video-header .header-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--bg-color);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            color: var(--accent-color);
+            box-shadow: 
+                8px 8px 15px var(--shadow-dark),
+                -8px -8px 15px var(--shadow-light);
+            animation: pulse 2s infinite;
+        }
+
+        .video-header h1 {
+            font-size: 36px;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .video-header p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Category Section */
+        .video-category {
+            margin-bottom: 40px;
+            animation: slideUp 0.6s ease;
+        }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--shadow-dark);
+        }
+
+        .category-title h2 {
+            font-size: 24px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .category-title h2 i {
+            color: var(--accent-color);
+            font-size: 28px;
+        }
+
+        .category-count {
+            background: var(--bg-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            box-shadow: 
+                inset 3px 3px 6px var(--shadow-dark),
+                inset -3px -3px 6px var(--shadow-light);
+        }
+
+        /* Subject Cards Grid */
+        .subject-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .subject-card {
+            background: var(--bg-color);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 
+                8px 8px 15px var(--shadow-dark),
+                -8px -8px 15px var(--shadow-light);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subject-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+        }
+
+        .subject-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 
+                12px 12px 20px var(--shadow-dark),
+                -12px -12px 20px var(--shadow-light);
+        }
+
+        .subject-card:hover::before {
+            height: 100%;
+            opacity: 0.1;
+        }
+
+        .subject-card .card-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--bg-color);
+            border-radius: 50%;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: var(--accent-color);
+            box-shadow: 
+                5px 5px 10px var(--shadow-dark),
+                -5px -5px 10px var(--shadow-light);
+        }
+
+        .subject-card h3 {
+            font-size: 20px;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .subject-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid var(--shadow-dark);
+        }
+
+        .video-count {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .video-count i {
+            color: var(--accent-color);
+        }
+
+        .watch-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 12px;
+            background: var(--accent-color);
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(77, 182, 201, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .watch-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .watch-btn i {
+            font-size: 12px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .video-header h1 {
+                font-size: 28px;
+            }
+            
+            .subject-cards-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .subject-card {
+                padding: 20px;
+            }
+            
+            .subject-card .card-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+            }
+            
+            .subject-card h3 {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-lectures-container {
+                padding: 80px 15px 30px;
+            }
+            
+            .subject-cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;" title="Click to go to Home">
+                <div class="logo-circle"><i class="fas fa-book"></i></div>
+                <h1>LearnHub</h1>
+            </div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search video lectures..." onkeyup="searchVideos()">
+                <button class="search-btn" onclick="searchVideos()">🔍</button>
+            </div>
+            <nav class="nav-links">
+                <a href="#" class="nav-link" onclick="window.location.href='index.html'"><i class="fas fa-home"></i> Home</a>
+                <a href="#" class="nav-link" onclick="window.location.href='quizzes.html'"><i class="fas fa-puzzle-piece"></i> Quizzes</a>
+                <a href="#" class="nav-link active"><i class="fas fa-video"></i> Video Lectures</a>
+                <a href="#" class="nav-link" onclick="window.location.href='about.html'"><i class="fas fa-info-circle"></i> About</a>
+            </nav>
+            <div class="user-profile" onclick="toggleAccountDropdown()">
+                <div class="profile-circle" id="headerProfileCircle">👤</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Video Lectures Container -->
+    <div class="video-lectures-container">
+        <!-- Header -->
+           <button class="back-btn" onclick="window.location='index.html'">← Back to Home</button>
+        <div class="video-header">
+            <div class="header-icon">
+                <i class="fas fa-video"></i>
+            </div>
+            <h1>Video Lectures</h1>
+            <p>Learn through high-quality video tutorials from expert instructors. Click on any subject to start watching!</p>
+        </div>
+
+        <!-- Programming Languages Category -->
+        <div class="video-category">
+            <div class="category-title">
+                <h2><i class="fas fa-code"></i> Programming Languages</h2>
+                <span class="category-count">8 Subjects</span>
+            </div>
+            <div class="subject-cards-grid">
+                <div class="subject-card" onclick="window.location.href='video-subject.html?subject=html'">
+                    <div class="card-icon"><i class="fab fa-html5"></i></div>
+                    <h3>HTML</h3>
+                    <p>Learn the foundation of web development with comprehensive HTML tutorials.</p>
+                    <div class="card-meta">
+                        <span class="video-count"><i class="fas fa-play-circle"></i> 25+ Videos</span>
+                        <button class="watch-btn"><i class="fas fa-play"></i> Watch</button>
+                    </div>
+                </div>
+
+                <div class="subject-card" onclick="window.location.href='video-subject.html?subject=css'">
+                    <div class="card-icon"><i class="fab fa-css3-alt"></i></div>
+                    <h3>CSS</h3>
+                    <p>Master styling and layout techniques with CSS tutorials.</p>
+                    <div class="card-meta">
+                        <span class="video-count"><i class="fas fa-play-circle"></i> 30+ Videos</span>
+                        <button class="watch-btn"><i class="fas fa-play"></i> Watch</button>
+                    </div>
+                </div>
+
+                <div class="subject-card" onclick="window.location.href='video-subject.html?subject=javascript'">
+                    <div class="card-icon"><i class="fab fa-js-square"></i></div>
+                    <h3>JavaScript</h3>
+                    <p>Build interactive websites with JavaScript programming.</p>
+                    <div class="card-meta">
+                        <span class="video-count"><i class="fas fa-play-circle"></i> 40+ Videos</span>
+                        <button class="watch-btn"><i class="fas fa-play"></i> Watch</button>
+                    </div>
+                </div>
+
+                <div class="subject-card" onclick="window.location.href='video-subject.html?subject=python'">
+                    <div class="card-icon"><i class="fab fa-python"></i></div>
+                    <h3>Python</h3>
+                    <p>Learn Python programming from basics to advanced concepts.</p>
+                    <div class="card-meta">
+                        <span class="video-count"><i class="fas fa-play-circle"></i> 35+ Videos</span>
+                        <button class="watch-btn"><i class="fas fa-play"></i> Watch</button>
+                    </div>
+                </div>
+
+                <div class="subject-card" onclick="window.location.href='video-subject.html?subject=java'">
+                    <div class="card-icon"><i class="fab fa-java"></i></div>
+                    <h3>Java</h3>
+                    <p>Master object-oriented programming with Java.</p>
+                    <div class="card-meta">
+                        <span class="video-count"><i class="fas fa-play-circle"></i> 28+ Videos</span>
+                        <button class="watch-btn"><i class="fas fa-play"></i> Watch</button>
+                    </div>
+                </div>
+
+                <div class="subject-card" onclick="window.location.href='video-subject.html?subject=c'">
+                    <div class="card-icon"><i class="fas fa-copyright"></i></div>
+                    <h3>C Programming</h3>
+                    <p>Learn the fundamentals of C programming language.</p>
+                    <div class="card-meta">
+                        <span class="video-count"><i class="fas fa-play-circle"></i> 20+ Videos</span>
+                        <button class="watch-btn"><i class="fas fa-play"></i> Watch</button>
+                    </div>
+                </div>
+
+                <div class="subject-card" onclick="window.location.href='video-subject.html?subject=cpp'">
+                    <div class="card-icon"><i class="fas fa-code"></i></div>
+                    <h3>C++</h3>
+                    <p>Master C++ programming and object-oriented concepts.</p>
+                    <div class="card-meta">
+                        <span class="video-count"><i class="fas fa-play-circle"></i> 22+ Videos</span>
+                        <button class="watch-btn"><i class="fas fa-play"></i> Watch</button>
+                    </div>
+                </div>
+
+                <div class="subject-card" onclick="window.location.href='video-subject.html?subject=react'">
+                    <div class="card-icon"><i class="fab fa-react"></i></div>
+                    <h3>React JS</h3>
+                    <p>Build modern web applications with React.js.</p>
+                    <div class="card-meta">
+                        <span class="video-count"><i class="fas fa-play-circle"></i> 30+ Videos</span>
+                        <button class="watch-btn"><i class="fas fa-play"></i> Watch</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Science & AI Category -->
+        <div class="video-category">
+            <div class="category-title">
+                <h2><i class="fas fa-brain"></i> Data Science & AI</h2>
+                <span class="category-count">4 Subjects</span>
+            </div>
+            <div class="subject-cards-grid">
+                <div class="subject-card" onclick="window.location.href='video-subject.html?subject=machine-learning'">
+                    <div class="card-icon"><i class="fas fa-robot"></i></div>
+                    <h3>Machine Learning</h3>
+                    <p>Learn ML algorithms and practical implementations.</p>
+                    <div class="card-meta">
+                        <span class="video-count"><i class="fas fa-play-circle"></i> 35+ Videos</span>
+                        <button class="watch-btn"><i class="fas fa-play"></i> Watch</button>
+                    </div>
+                </div>
+
+                <div class="subject-card" onclick="window.location.href='video-subject.html?subject=deep-learning'">
+                    <div class="card-icon"><i class="fas fa-network-wired"></i></div>
+                    <h3>Deep Learning</h3>
+                    <p>Master neural networks and deep learning frameworks.</p>
+                    <div class="card-meta">
+                        <span class="video-count"><i class="fas fa-play-circle"></i> 28+ Videos</span>
+                        <button class="watch-btn"><i class="fas fa-play"></i> Watch</button>
+                    </div>
+                </div>
+
+                <div class="subject-card" onclick="window.location.href='video-subject.html?subject=data-science'">
+                    <div class="card-icon"><i class="fas fa-chart-bar"></i></div>
+                    <h3>Data Science</h3>
+                    <p>Analyze data and extract insights using Python.</p>
+                    <div class="card-meta">
+                        <span class="video-count"><i class="fas fa-play-circle"></i> 32+ Videos</span>
+                        <button class="watch-btn"><i class="fas fa-play"></i> Watch</button>
+                    </div>
+                </div>
+
+                <div class="subject-card" onclick="window.location.href='video-subject.html?subject=artificial-intelligence'">
+                    <div class="card-icon"><i class="fas fa-microchip"></i></div>
+                    <h3>Artificial Intelligence</h3>
+                    <p>Understand AI concepts and applications.</p>
+                    <div class="card-meta">
+                        <span class="video-count"><i class="fas fa-play-circle"></i> 25+ Videos</span>
+                        <button class="watch-btn"><i class="fas fa-play"></i> Watch</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Web Development Category -->
+        <div class="video-category">
+            <div class="category-title">
+                <h2><i class="fas fa-globe"></i> Web Development</h2>
+                <span class="category-count">3 Subjects</span>
+            </div>
+            <div class="subject-cards-grid">
+                <div class="subject-card" onclick="window.location.href='video-subject.html?subject=web-development'">
+                    <div class="card-icon"><i class="fas fa-laptop-code"></i></div>
+                    <h3>Full Stack Web Dev</h3>
+                    <p>Complete web development course from frontend to backend.</p>
+                    <div class="card-meta">
+                        <span class="video-count"><i class="fas fa-play-circle"></i> 50+ Videos</span>
+                        <button class="watch-btn"><i class="fas fa-play"></i> Watch</button>
+                    </div>
+                </div>
+
+                <div class="subject-card" onclick="window.location.href='video-subject.html?subject=nodejs'">
+                    <div class="card-icon"><i class="fab fa-node-js"></i></div>
+                    <h3>Node.js</h3>
+                    <p>Build server-side applications with Node.js.</p>
+                    <div class="card-meta">
+                        <span class="video-count"><i class="fas fa-play-circle"></i> 25+ Videos</span>
+                        <button class="watch-btn"><i class="fas fa-play"></i> Watch</button>
+                    </div>
+                </div>
+
+                <div class="subject-card" onclick="window.location.href='video-subject.html?subject=mongodb'">
+                    <div class="card-icon"><i class="fas fa-database"></i></div>
+                    <h3>MongoDB</h3>
+                    <p>Learn NoSQL database with MongoDB.</p>
+                    <div class="card-meta">
+                        <span class="video-count"><i class="fas fa-play-circle"></i> 18+ Videos</span>
+                        <button class="watch-btn"><i class="fas fa-play"></i> Watch</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Core CS Category -->
+        <div">
+            <div class="video-category class="category-title">
+                <h2><i class="fas fa-desktop"></i> Computer Science</h2>
+                <span class="category-count">4 Subjects</span>
+            </div>
+            <div class="subject-cards-grid">
+                <div class="subject-card" onclick="window.location.href='video-subject.html?subject=dsa'">
+                    <div class="card-icon"><i class="fas fa-sitemap"></i></div>
+                    <h3>Data Structures</h3>
+                    <p>Learn essential data structures and algorithms.</p>
+                    <div class="card-meta">
+                        <span class="video-count"><i class="fas fa-play-circle"></i> 40+ Videos</span>
+                        <button class="watch-btn"><i class="fas fa-play"></i> Watch</button>
+                    </div>
+                </div>
+
+                <div class="subject-card" onclick="window.location.href='video-subject.html?subject=algorithms'">
+                    <div class="card-icon"><i class="fas fa-project-diagram"></i></div>
+                    <h3>Algorithms</h3>
+                    <p>Master algorithm design and optimization.</p>
+                    <div class="card-meta">
+                        <span class="video-count"><i class="fas fa-play-circle"></i> 35+ Videos</span>
+                        <button class="watch-btn"><i class="fas fa-play"></i> Watch</button>
+                    </div>
+                </div>
+
+                <div class="subject-card" onclick="window.location.href='video-subject.html?subject=dbms'">
+                    <div class="card-icon"><i class="fas fa-database"></i></div>
+                    <h3>DBMS</h3>
+                    <p>Understand database management systems.</p>
+                    <div class="card-meta">
+                        <span class="video-count"><i class="fas fa-play-circle"></i> 28+ Videos</span>
+                        <button class="watch-btn"><i class="fas fa-play"></i> Watch</button>
+                    </div>
+                </div>
+
+                <div class="subject-card" onclick="window.location.href='video-subject.html?subject=operating-system'">
+                    <div class="card-icon"><i class="fas fa-microchip"></i></div>
+                    <h3>Operating System</h3>
+                    <p>Learn OS concepts and fundamentals.</p>
+                    <div class="card-meta">
+                        <span class="video-count"><i class="fas fa-play-circle"></i> 25+ Videos</span>
+                        <button class="watch-btn"><i class="fas fa-play"></i> Watch</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Search Function
+        function searchVideos() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.subject-card');
+            
+            cards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Apply dark mode from localStorage
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+</body>
+</html>

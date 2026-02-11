@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Try It - LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      .editor-wrap{display:flex;gap:12px;flex-direction:column}
+      .editor-area{width:100%;min-height:300px;font-family:monospace}
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <h2>Try It Yourself</h2>
+      <div id="meta"></div>
+      <textarea id="localEditor" class="editor-area"></textarea>
+      <div>
+        <button id="runBtn" class="btn primary">Run (JS)</button>
+        <button id="openRemote" class="btn">Open Remote Editor</button>
+      </div>
+      <h3>Output</h3>
+      <pre id="outArea"></pre>
+    </main>
+
+    <script>
+      const params = new URLSearchParams(location.search);
+      const lang = (params.get('lang')||'').toLowerCase();
+      const code = params.get('code') ? decodeURIComponent(params.get('code')) : '';
+      document.getElementById('localEditor').value = code;
+      document.getElementById('meta').textContent = `Language: ${lang}`;
+
+      document.getElementById('runBtn').addEventListener('click', ()=>{
+        if(lang!=='javascript') return alert('Run is available for JavaScript only in local editor.');
+        const userCode = document.getElementById('localEditor').value;
+        try{
+          const result = eval(userCode);
+          document.getElementById('outArea').textContent = String(result===undefined? 'Executed. Check console for logs.': result);
+        }catch(e){ document.getElementById('outArea').textContent = e; }
+      });
+
+      document.getElementById('openRemote').addEventListener('click', ()=>{
+        const target = `https://onecompiler.com/${lang}?code=${encodeURIComponent(document.getElementById('localEditor').value)}`;
+        window.open(target,'_blank');
+      });
+    </script>
+  </body>
+</html>

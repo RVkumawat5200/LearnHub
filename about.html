@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About LearnHub - Your Learning Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* About Page Specific Styles */
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: slideDown 0.6s ease;
+        }
+
+        .about-header .logo-large {
+            width: 120px;
+            height: 120px;
+            background: var(--bg-color);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            box-shadow: 
+                8px 8px 15px var(--shadow-dark),
+                -8px -8px 15px var(--shadow-light);
+            animation: pulse 2s infinite;
+        }
+
+        .about-header h1 {
+            font-size: 42px;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .about-header p {
+            font-size: 18px;
+            color: var(--text-secondary);
+        }
+
+        /* Navigation Tabs */
+        .about-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            animation: slideUp 0.6s ease;
+        }
+
+        .about-nav-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 15px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 
+                5px 5px 10px var(--shadow-dark),
+                -5px -5px 10px var(--shadow-light);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .about-nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                7px 7px 15px var(--shadow-dark),
+                -7px -7px 15px var(--shadow-light);
+        }
+
+        .about-nav-btn.active {
+            background: var(--accent-color);
+            color: white;
+            box-shadow: 0 5px 15px rgba(77, 182, 201, 0.4);
+        }
+
+        .about-nav-btn i {
+            font-size: 18px;
+        }
+
+        /* Content Sections */
+        .about-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .about-section.active {
+            display: block;
+        }
+
+        .section-card {
+            background: var(--bg-color);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 
+                8px 8px 15px var(--shadow-dark),
+                -8px -8px 15px var(--shadow-light);
+            transition: all 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                10px 10px 20px var(--shadow-dark),
+                -10px -10px 20px var(--shadow-light);
+        }
+
+        .section-card h2 {
+            font-size: 28px;
+            color: var(--text-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-card h2 i {
+            color: var(--accent-color);
+            font-size: 24px;
+        }
+
+        .section-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        /* About Us Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .feature-card {
+            background: var(--bg-color);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 
+                5px 5px 10px var(--shadow-dark),
+                -5px -5px 10px var(--shadow-light);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .feature-card .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--bg-color);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: var(--accent-color);
+            box-shadow: 
+                3px 3px 6px var(--shadow-dark),
+                -3px -3px 6px var(--shadow-light);
+        }
+
+        .feature-card h3 {
+            color: var(--text-color);
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .contact-info-card {
+            background: var(--bg-color);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 
+                5px 5px 10px var(--shadow-dark),
+                -5px -5px 10px var(--shadow-light);
+            transition: all 0.3s ease;
+        }
+
+        .contact-info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-info-card .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--bg-color);
+            border-radius: 50%;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--accent-color);
+            box-shadow: 
+                3px 3px 6px var(--shadow-dark),
+                -3px -3px 6px var(--shadow-light);
+        }
+
+        .contact-info-card h3 {
+            color: var(--text-color);
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .contact-info-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .contact-form {
+            background: var(--bg-color);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 
+                5px 5px 10px var(--shadow-dark),
+                -5px -5px 10px var(--shadow-light);
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 12px;
+            background: var(--bg-color);
+            box-shadow: 
+                inset 3px 3px 6px var(--shadow-dark),
+                inset -3px -3px 6px var(--shadow-light);
+            color: var(--text-color);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            box-shadow: 
+                inset 5px 5px 10px var(--shadow-dark),
+                inset -5px -5px 10px var(--shadow-light);
+        }
+
+        .contact-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: var(--accent-color);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(77, 182, 201, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Terms & Conditions Section */
+        .terms-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .terms-list li {
+            padding: 20px;
+            margin-bottom: 15px;
+            background: var(--bg-color);
+            border-radius: 12px;
+            box-shadow: 
+                3px 3px 6px var(--shadow-dark),
+                -3px -3px 6px var(--shadow-light);
+            transition: all 0.3s ease;
+        }
+
+        .terms-list li:hover {
+            transform: translateX(5px);
+        }
+
+        .terms-list li h4 {
+            color: var(--text-color);
+            margin-bottom: 10px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .terms-list li h4 i {
+            color: var(--accent-color);
+            font-size: 16px;
+        }
+
+        .terms-list li p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Documentation Section */
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .doc-card {
+            background: var(--bg-color);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 
+                5px 5px 10px var(--shadow-dark),
+                -5px -5px 10px var(--shadow-light);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .doc-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                7px 7px 15px var(--shadow-dark),
+                -7px -7px 15px var(--shadow-light);
+        }
+
+        .doc-card .doc-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-color);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: var(--accent-color);
+            box-shadow: 
+                3px 3px 6px var(--shadow-dark),
+                -3px -3px 6px var(--shadow-light);
+        }
+
+        .doc-card h3 {
+            color: var(--text-color);
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .doc-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .doc-card .doc-link {
+            color: var(--accent-color);
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .doc-card .doc-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Modal Styles */
+        .doc-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 10000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .doc-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .doc-modal-content {
+            background: var(--bg-color);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 
+                10px 10px 20px var(--shadow-dark),
+                -10px -10px 20px var(--shadow-light);
+            animation: pop 0.4s ease;
+            position: relative;
+        }
+
+        .doc-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--shadow-dark);
+        }
+
+        .doc-modal-header h2 {
+            color: var(--text-color);
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .doc-modal-header h2 i {
+            color: var(--accent-color);
+        }
+
+        .close-modal-btn {
+            background: var(--bg-color);
+            border: none;
+            color: var(--text-color);
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            box-shadow: 
+                3px 3px 6px var(--shadow-dark),
+                -3px -3px 6px var(--shadow-light);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal-btn:hover {
+            background: var(--danger-color);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .doc-modal-body {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .doc-modal-body h3 {
+            color: var(--text-color);
+            font-size: 20px;
+            margin: 20px 0 10px;
+        }
+
+        .doc-modal-body h4 {
+            color: var(--text-color);
+            font-size: 18px;
+            margin: 15px 0 8px;
+        }
+
+        .doc-modal-body ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .doc-modal-body li {
+            margin-bottom: 8px;
+        }
+
+        .doc-modal-body code {
+            background: var(--shadow-dark);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: var(--accent-color);
+        }
+
+        .doc-modal-body .step {
+            background: var(--bg-color);
+            padding: 15px;
+            border-radius: 12px;
+            margin: 15px 0;
+            box-shadow: 
+                3px 3px 6px var(--shadow-dark),
+                -3px -3px 6px var(--shadow-light);
+        }
+
+        .doc-modal-body .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 12px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 
+                5px 5px 10px var(--shadow-dark),
+                -5px -5px 10px var(--shadow-light);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                7px 7px 15px var(--shadow-dark),
+                -7px -7px 15px var(--shadow-light);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .about-header h1 {
+                font-size: 32px;
+            }
+
+            .about-header .logo-large {
+                width: 100px;
+                height: 100px;
+                font-size: 40px;
+            }
+
+            .about-nav-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+
+            .section-card {
+                padding: 25px;
+            }
+
+            .section-card h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <button class="back-btn" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </button>
+
+    <!-- About Container -->
+    <div class="about-container">
+        <!-- Header -->
+        <div class="about-header">
+            <div class="logo-large">
+                <i class="fas fa-book"></i>
+            </div>
+            <h1>LearnHub</h1>
+            <p>Your Smart Learning Platform</p>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="about-nav">
+            <button class="about-nav-btn active" onclick="showSection('about-us')">
+                <i class="fas fa-info-circle"></i> About Us
+            </button>
+            <button class="about-nav-btn" onclick="showSection('contact')">
+                <i class="fas fa-envelope"></i> Contact
+            </button>
+            <button class="about-nav-btn" onclick="showSection('terms')">
+                <i class="fas fa-file-contract"></i> Terms & Conditions
+            </button>
+            <button class="about-nav-btn" onclick="showSection('documentation')">
+                <i class="fas fa-book-open"></i> Documentation
+            </button>
+        </div>
+
+        <!-- About Us Section -->
+        <div id="about-us" class="about-section active">
+            <div class="section-card">
+                <h2><i class="fas fa-heart"></i> About LearnHub</h2>
+                <p>LearnHub is a comprehensive online learning platform designed to help students and professionals master programming languages and computer science concepts. Our mission is to provide high-quality, accessible education to everyone, everywhere.</p>
+                <p>Founded with a passion for education and technology, LearnHub offers interactive notes, code examples, quizzes, and practice questions to make learning engaging and effective.</p>
+            </div>
+
+            <div class="about-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Interactive Learning</h3>
+                    <p>Learn with hands-on code examples and interactive exercises that make complex concepts easy to understand.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Community Driven</h3>
+                    <p>Join thousands of learners worldwide and be part of a growing community of developers and tech enthusiasts.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Track Progress</h3>
+                    <p>Monitor your learning journey with detailed progress tracking and personalized recommendations.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h3>Unlimited Access</h3>
+                    <p>Access all courses, notes, and resources anytime, anywhere with no restrictions.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Learn on the go with our responsive design that works perfectly on all devices.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>Certificates</h3>
+                    <p>Earn certificates upon completing courses to showcase your skills to employers.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div id="contact" class="about-section">
+            <div class="section-card">
+                <h2><i class="fas fa-envelope"></i> Get In Touch</h2>
+                <p>Have questions, suggestions, or feedback? We'd love to hear from you! Fill out the form below or reach out to us through our contact channels.</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email Us</h3>
+                    <p>support@learnhub.com</p>
+                    <p>info@learnhub.com</p>
+                </div>
+
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>Call Us</h3>
+                    <p>+91 98765 43210</p>
+                    <p>Mon - Fri, 9AM - 6PM</p>
+                </div>
+
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Visit Us</h3>
+                    <p>123 Tech Street, Innovation Hub</p>
+                    <p>Bangalore, India - 560001</p>
+                </div>
+
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Working Hours</h3>
+                    <p>Monday - Friday: 9AM - 6PM</p>
+                    <p>Saturday: 10AM - 4PM</p>
+                </div>
+            </div>
+
+            <div class="contact-form" style="margin-top: 30px;">
+                <h3 style="color: var(--text-color); margin-bottom: 20px; font-size: 20px;">
+                    <i class="fas fa-paper-plane"></i> Send us a Message
+                </h3>
+                <form onsubmit="submitContactForm(event)">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <input type="text" placeholder="Subject" required>
+                    <textarea placeholder="Your Message" required></textarea>
+                    <button type="submit">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Terms & Conditions Section -->
+        <div id="terms" class="about-section">
+            <div class="section-card">
+                <h2><i class="fas fa-file-contract"></i> Terms & Conditions</h2>
+                <p>Please read these terms and conditions carefully before using LearnHub. By accessing or using our platform, you agree to be bound by these terms.</p>
+            </div>
+
+            <ul class="terms-list">
+                <li>
+                    <h4><i class="fas fa-user-check"></i> User Account</h4>
+                    <p>You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You must notify us immediately of any unauthorized use of your account.</p>
+                </li>
+
+                <li>
+                    <h4><i class="fas fa-shield-alt"></i> Content Usage</h4>
+                    <p>All content on LearnHub, including text, graphics, logos, and software, is the property of LearnHub or its content suppliers and is protected by international copyright laws.</p>
+                </li>
+
+                <li>
+                    <h4><i class="fas fa-ban"></i> Prohibited Activities</h4>
+                    <p>You may not use LearnHub for any illegal purpose, attempt to gain unauthorized access to our systems, or interfere with other users' enjoyment of the platform.</p>
+                </li>
+
+                <li>
+                    <h4><i class="fas fa-exchange-alt"></i> Privacy Policy</h4>
+                    <p>Your use of LearnHub is also governed by our Privacy Policy, which describes how we collect, use, and protect your personal information.</p>
+                </li>
+
+                <li>
+                    <h4><i class="fas fa-gavel"></i> Limitation of Liability</h4>
+                    <p>LearnHub shall not be liable for any indirect, incidental, special, or consequential damages arising out of or in connection with your use of the platform.</p>
+                </li>
+
+                <li>
+                    <h4><i class="fas fa-sync-alt"></i> Modifications</h4>
+                    <p>We reserve the right to modify these terms at any time. Continued use of the platform after changes constitutes acceptance of the new terms.</p>
+                </li>
+
+                <li>
+                    <h4><i class="fas fa-user-times"></i> Termination</h4>
+                    <p>We reserve the right to terminate or suspend your account at any time, with or without cause, with or without notice.</p>
+                </li>
+
+                <li>
+                    <h4><i class="fas fa-balance-scale"></i> Governing Law</h4>
+                    <p>These terms shall be governed by and construed in accordance with the laws of India, and any disputes shall be subject to the exclusive jurisdiction of the courts in Bangalore.</p>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Documentation Section -->
+        <div id="documentation" class="about-section">
+            <div class="section-card">
+                <h2><i class="fas fa-book-open"></i> Documentation</h2>
+                <p>Explore our comprehensive documentation to get the most out of LearnHub. Find guides, tutorials, and API references to help you navigate our platform.</p>
+            </div>
+
+            <div class="doc-grid">
+                <div class="doc-card" onclick="openDocModal('getting-started')">
+                    <div class="doc-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Getting Started</h3>
+                    <p>Learn how to create an account, navigate the interface, and start your learning journey with LearnHub.</p>
+                    <span class="doc-link">Read Guide <i class="fas fa-arrow-right"></i></span>
+                </div>
+
+                <div class="doc-card" onclick="openDocModal('course-structure')">
+                    <div class="doc-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Course Structure</h3>
+                    <p>Understand how our courses are organized, including topics, subtopics, and learning paths.</p>
+                    <span class="doc-link">Read Guide <i class="fas fa-arrow-right"></i></span>
+                </div>
+
+                <div class="doc-card" onclick="openDocModal('code-library')">
+                    <div class="doc-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Code Library</h3>
+                    <p>Explore our extensive code library with examples in multiple programming languages.</p>
+                    <span class="doc-link">Read Guide <i class="fas fa-arrow-right"></i></span>
+                </div>
+
+                <div class="doc-card" onclick="openDocModal('quizzes')">
+                    <div class="doc-icon">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <h3>Quizzes & Tests</h3>
+                    <p>Learn how to take quizzes, track your scores, and improve your knowledge through practice.</p>
+                    <span class="doc-link">Read Guide <i class="fas fa-arrow-right"></i></span>
+                </div>
+
+                <div class="doc-card" onclick="openDocModal('progress-tracking')">
+                    <div class="doc-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Progress Tracking</h3>
+                    <p>Monitor your learning progress, view statistics, and set personal goals.</p>
+                    <span class="doc-link">Read Guide <i class="fas fa-arrow-right"></i></span>
+                </div>
+
+                <div class="doc-card" onclick="openDocModal('bookmarks')">
+                    <div class="doc-icon">
+                        <i class="fas fa-bookmark"></i>
+                    </div>
+                    <h3>Bookmarks</h3>
+                    <p>Save your favorite topics and access them quickly from your bookmarks list.</p>
+                    <span class="doc-link">Read Guide <i class="fas fa-arrow-right"></i></span>
+                </div>
+
+                <div class="doc-card" onclick="openDocModal('customization')">
+                    <div class="doc-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Customization</h3>
+                    <p>Personalize your learning experience with dark mode, animation settings, and more.</p>
+                    <span class="doc-link">Read Guide <i class="fas fa-arrow-right"></i></span>
+                </div>
+
+                <div class="doc-card" onclick="openDocModal('company-resources')">
+                    <div class="doc-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Company Resources</h3>
+                    <p>Access interview preparation materials and company-specific resources.</p>
+                    <span class="doc-link">Read Guide <i class="fas fa-arrow-right"></i></span>
+                </div>
+
+                <div class="doc-card" onclick="openDocModal('account-settings')">
+                    <div class="doc-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3>Account Settings</h3>
+                    <p>Manage your profile, update preferences, and configure your account settings.</p>
+                    <span class="doc-link">Read Guide <i class="fas fa-arrow-right"></i></span>
+                </div>
+
+                <div class="doc-card" onclick="openDocModal('faq')">
+                    <div class="doc-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3>FAQ</h3>
+                    <p>Find answers to frequently asked questions about LearnHub.</p>
+                    <span class="doc-link">Read Guide <i class="fas fa-arrow-right"></i></span>
+                </div>
+
+                <div class="doc-card" onclick="openDocModal('troubleshooting')">
+                    <div class="doc-icon">
+                        <i class="fas fa-bug"></i>
+                    </div>
+                    <h3>Troubleshooting</h3>
+                    <p>Solve common issues and get help with technical problems.</p>
+                    <span class="doc-link">Read Guide <i class="fas fa-arrow-right"></i></span>
+                </div>
+
+                <div class="doc-card" onclick="openDocModal('mobile-app')">
+                    <div class="doc-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile App</h3>
+                    <p>Learn about our mobile application and how to use LearnHub on the go.</p>
+                    <span class="doc-link">Read Guide <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documentation Modal -->
+        <div class="doc-modal" id="docModal">
+            <div class="doc-modal-content">
+                <div class="doc-modal-header">
+                    <h2 id="modalTitle"><i class="fas fa-book"></i> Documentation</h2>
+                    <button class="close-modal-btn" onclick="closeDocModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="doc-modal-body" id="modalContent">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Documentation Content
+        const docContent = {
+            'getting-started': {
+                title: 'Getting Started',
+                icon: 'fa-rocket',
+                content: `
+                    <h3>Welcome to LearnHub!</h3>
+                    <p>This guide will help you get started with LearnHub and begin your learning journey.</p>
+                    
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Create Your Account</strong>
+                        <p>Visit the LearnHub homepage and click on the login/signup button. Fill in your details to create a new account. You'll need a valid email address and a secure password.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Explore the Dashboard</strong>
+                        <p>After logging in, you'll see the main dashboard with navigation options including Home, Notes, Practice, Companies, Resources, and Bookmarks.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Choose Your Subject</strong>
+                        <p>Use the sidebar to browse through different subjects like HTML, CSS, JavaScript, Python, Java, and many more. Click on any subject to see available topics.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Start Learning</strong>
+                        <p>Click on any topic to view detailed notes, code examples, and practice exercises. Track your progress as you complete each topic.</p>
+                    </div>
+                    
+                    <h3>Tips for Beginners</h3>
+                    <ul>
+                        <li>Start with basics before moving to advanced topics</li>
+                        <li>Practice regularly to reinforce your learning</li>
+                        <li>Use the code examples to understand concepts better</li>
+                        <li>Take quizzes to test your knowledge</li>
+                        <li>Bookmark important topics for quick access</li>
+                    </ul>
+                `
+            },
+            'course-structure': {
+                title: 'Course Structure',
+                icon: 'fa-book',
+                content: `
+                    <h3>Understanding LearnHub's Course Organization</h3>
+                    <p>LearnHub courses are organized in a hierarchical structure to make learning easy and systematic.</p>
+                    
+                    <h4>Subject Categories</h4>
+                    <p>Our courses are divided into main subject categories:</p>
+                    <ul>
+                        <li><strong>Programming Languages:</strong> HTML, CSS, JavaScript, Python, Java, C, C++, PHP, Go, Rust, Kotlin, Swift, R</li>
+                        <li><strong>Core CS Subjects:</strong> Data Structures, Algorithms, Operating Systems, DBMS, Computer Networks, Software Engineering</li>
+                        <li><strong>Web Development:</strong> HTML, CSS, Web Development</li>
+                        <li><strong>Advanced Technologies:</strong> AI, Machine Learning, Deep Learning, Data Science, Cloud Computing, Cyber Security</li>
+                    </ul>
+                    
+                    <h4>Topic Organization</h4>
+                    <p>Each subject contains multiple topics organized by difficulty:</p>
+                    <ul>
+                        <li><strong>Basics:</strong> Fundamental concepts for beginners</li>
+                        <li><strong>Intermediate:</strong> Building on basics with practical examples</li>
+                        <li><strong>Advanced:</strong> Complex topics and real-world applications</li>
+                        <li><strong>Practice:</strong> Exercises and coding challenges</li>
+                    </ul>
+                    
+                    <h4>Learning Paths</h4>
+                    <p>Follow recommended learning paths based on your goals:</p>
+                    <ul>
+                        <li><strong>Web Development Path:</strong> HTML → CSS → JavaScript → Frameworks</li>
+                        <li><strong>Data Science Path:</strong> Python → Data Structures → Machine Learning</li>
+                        <li><strong>Backend Development:</strong> Java/Python → Databases → APIs</li>
+                    </ul>
+                `
+            },
+            'code-library': {
+                title: 'Code Library',
+                icon: 'fa-code',
+                content: `
+                    <h3>Explore Our Code Library</h3>
+                    <p>LearnHub's code library contains 100+ code examples across multiple programming languages.</p>
+                    
+                    <h4>Features</h4>
+                    <ul>
+                        <li><strong>Search Functionality:</strong> Find code by language, topic, or keyword</li>
+                        <li><strong>Language Filters:</strong> Filter code examples by programming language</li>
+                        <li><strong>Copy Code:</strong> One-click copy to clipboard</li>
+                        <li><strong>Try It Yourself:</strong> Open code in online editor</li>
+                        <li><strong>Difficulty Levels:</strong> Code marked as Basic, Intermediate, or Advanced</li>
+                    </ul>
+                    
+                    <h4>Available Languages</h4>
+                    <p>Our code library includes examples in:</p>
+                    <ul>
+                        <li>Web Technologies: HTML, CSS, JavaScript</li>
+                        <li>Backend: Python, Java, C, C++, PHP, Go, Rust</li>
+                        <li>Mobile: Kotlin, Swift</li>
+                        <li>Data Science: R, Python</li>
+                    </ul>
+                    
+                    <h4>How to Use</h4>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Access Code Library</strong>
+                        <p>Click on the "Code Library" card from the home page or use the navigation menu.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Filter by Language</strong>
+                        <p>Use the language tabs to filter code examples by your preferred programming language.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>View Code</strong>
+                        <p>Click on any code card to view the complete code with explanation.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Copy or Try</strong>
+                        <p>Copy the code to your clipboard or open it in an online editor to run it.</p>
+                    </div>
+                `
+            },
+            'quizzes': {
+                title: 'Quizzes & Tests',
+                icon: 'fa-puzzle-piece',
+                content: `
+                    <h3>Test Your Knowledge with Quizzes</h3>
+                    <p>LearnHub offers interactive quizzes to help you assess and improve your understanding.</p>
+                    
+                    <h4>Quiz Features</h4>
+                    <ul>
+                        <li><strong>Multiple Choice Questions:</strong> Choose the correct answer from options</li>
+                        <li><strong>Instant Feedback:</strong> Get immediate results after each question</li>
+                        <li><strong>Score Tracking:</strong> Monitor your quiz performance over time</li>
+                        <li><strong>Topic-Specific:</strong> Quizzes organized by subject and topic</li>
+                        <li><strong>Difficulty Levels:</strong> Easy, Medium, and Hard quizzes</li>
+                    </ul>
+                    
+                    <h4>Available Quiz Topics</h4>
+                    <ul>
+                        <li><strong>DSA:</strong> Arrays, Linked List, Stack, Queue, Trees, Graphs, Heap, Hashing</li>
+                        <li><strong>Python:</strong> Variables, Control Flow, Lists, Functions, OOP</li>
+                        <li><strong>C Language:</strong> Arrays, Pointers, Strings, Structures</li>
+                        <li><strong>And More:</strong> JavaScript, Java, CSS, HTML, and many others</li>
+                    </ul>
+                    
+                    <h4>How to Take a Quiz</h4>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Open Quizzes Page</strong>
+                        <p>Click on the "Quizzes" card from the home page.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Select Topic</strong>
+                        <p>Choose a subject and topic you want to test yourself on.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Answer Questions</strong>
+                        <p>Read each question carefully and select the best answer.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>View Results</strong>
+                        <p>See your score and review correct answers at the end.</p>
+                    </div>
+                `
+            },
+            'progress-tracking': {
+                title: 'Progress Tracking',
+                icon: 'fa-chart-bar',
+                content: `
+                    <h3>Monitor Your Learning Journey</h3>
+                    <p>LearnHub helps you track your progress and stay motivated throughout your learning journey.</p>
+                    
+                    <h4>Progress Metrics</h4>
+                    <ul>
+                        <li><strong>Topics Completed:</strong> Number of topics you've finished</li>
+                        <li><strong>Day Streak:</strong> Consecutive days of learning</li>
+                        <li><strong>Subject Progress:</strong> Percentage completion for each subject</li>
+                        <li><strong>Quiz Scores:</strong> History of your quiz performance</li>
+                        <li><strong>Time Spent:</strong> Total learning time on the platform</li>
+                    </ul>
+                    
+                    <h4>Where to Find Progress</h4>
+                    <ul>
+                        <li><strong>Sidebar:</strong> View subject-wise progress bars</li>
+                        <li><strong>Account Dropdown:</strong> See overall statistics</li>
+                        <li><strong>Profile Section:</strong> Detailed progress report</li>
+                    </ul>
+                    
+                    <h4>Setting Goals</h4>
+                    <p>Set personal learning goals to stay on track:</p>
+                    <ul>
+                        <li>Daily learning time targets</li>
+                        <li>Weekly topic completion goals</li>
+                        <li>Quiz score improvement targets</li>
+                        <li>Streak maintenance goals</li>
+                    </ul>
+                    
+                    <h4>Tips for Better Progress</h4>
+                    <ul>
+                        <li>Learn consistently to maintain your streak</li>
+                        <li>Complete topics in order for better understanding</li>
+                        <li>Take quizzes regularly to reinforce learning</li>
+                        <li>Review completed topics periodically</li>
+                    </ul>
+                `
+            },
+            'bookmarks': {
+                title: 'Bookmarks',
+                icon: 'fa-bookmark',
+                content: `
+                    <h3>Save Your Favorite Topics</h3>
+                    <p>Bookmarks allow you to quickly access important topics and resources.</p>
+                    
+                    <h4>Bookmark Features</h4>
+                    <ul>
+                        <li><strong>Quick Access:</strong> One-click access to saved topics</li>
+                        <li><strong>Organized List:</strong> All bookmarks in one place</li>
+                        <li><strong>Subject Tags:</strong> See which subject each bookmark belongs to</li>
+                        <li><strong>Remove Option:</strong> Easily remove bookmarks you no longer need</li>
+                    </ul>
+                    
+                    <h4>How to Bookmark</h4>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Open a Topic</strong>
+                        <p>Navigate to any topic you want to save.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Click Bookmark</strong>
+                        <p>Click the bookmark icon in the topic header.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Confirmation</strong>
+                        <p>You'll see a confirmation that the topic has been bookmarked.</p>
+                    </div>
+                    
+                    <h4>Accessing Bookmarks</h4>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Click Bookmarks Link</strong>
+                        <p>Click on the "Bookmarks" link in the navigation menu.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>View List</strong>
+                        <p>See all your saved topics in a popup panel.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Open Topic</strong>
+                        <p>Click on any bookmark to open that topic.</p>
+                    </div>
+                `
+            },
+            'customization': {
+                title: 'Customization',
+                icon: 'fa-palette',
+                content: `
+                    <h3>Personalize Your Learning Experience</h3>
+                    <p>LearnHub offers various customization options to suit your preferences.</p>
+                    
+                    <h4>Appearance Settings</h4>
+                    <ul>
+                        <li><strong>Dark Mode:</strong> Switch between light and dark themes</li>
+                        <li><strong>Eye Comfort:</strong> Reduce eye strain during long study sessions</li>
+                        <li><strong>Automatic:</strong> Dark mode can be set to follow system preferences</li>
+                    </ul>
+                    
+                    <h4>Animation Settings</h4>
+                    <ul>
+                        <li><strong>Animation Style:</strong> Choose from Fade, Slide, Pop, or None</li>
+                        <li><strong>Animation Speed:</strong> Adjust how fast animations play</li>
+                        <li><strong>Performance:</strong> Disable animations for better performance on older devices</li>
+                    </ul>
+                    
+                    <h4>How to Customize</h4>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Open Account Dropdown</strong>
+                        <p>Click on your profile icon in the header.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Access Settings</strong>
+                        <p>Find the Appearance or Animations section.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Adjust Preferences</strong>
+                        <p>Toggle dark mode or change animation settings.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Save Changes</strong>
+                        <p>Settings are automatically saved to your account.</p>
+                    </div>
+                    
+                    <h4>Additional Customization</h4>
+                    <ul>
+                        <li>Profile picture and display name</li>
+                        <li>Email notifications preferences</li>
+                        <li>Learning goal settings</li>
+                        <li>Language preferences (coming soon)</li>
+                    </ul>
+                `
+            },
+            'company-resources': {
+                title: 'Company Resources',
+                icon: 'fa-briefcase',
+                content: `
+                    <h3>Interview Preparation & Company Resources</h3>
+                    <p>Prepare for job interviews with company-specific resources and materials.</p>
+                    
+                    <h4>Available Resources</h4>
+                    <ul>
+                        <li><strong>Interview Questions:</strong> Common questions asked by top companies</li>
+                        <li><strong>Company-Specific Prep:</strong> Tailored materials for different organizations</li>
+                        <li><strong>Technical Rounds:</strong> Coding problems and solutions</li>
+                        <li><strong>HR Round Tips:</strong> Behavioral interview guidance</li>
+                        <li><strong>Salary Insights:</strong> Compensation information and negotiation tips</li>
+                    </ul>
+                    
+                    <h4>Featured Companies</h4>
+                    <ul>
+                        <li><strong>FAANG:</strong> Facebook, Amazon, Apple, Netflix, Google</li>
+                        <li><strong>Product Companies:</strong> Microsoft, Adobe, Salesforce, Oracle</li>
+                        <li><strong>Startups:</strong> Unicorn and growing tech companies</li>
+                        <li><strong>Service Companies:</strong> TCS, Infosys, Wipro, Accenture</li>
+                    </ul>
+                    
+                    <h4>How to Access</h4>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Open Companies Panel</strong>
+                        <p>Click on the "Companies" link in the navigation menu.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Select Company</strong>
+                        <p>Choose the company you're preparing for.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Study Resources</strong>
+                        <p>Review interview questions and preparation materials.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Practice Problems</strong>
+                        <p>Solve company-specific coding problems.</p>
+                    </div>
+                `
+            },
+            'account-settings': {
+                title: 'Account Settings',
+                icon: 'fa-cog',
+                content: `
+                    <h3>Manage Your Account</h3>
+                    <p>Access and configure your account settings from the account dropdown.</p>
+                    
+                    <h4>Profile Settings</h4>
+                    <ul>
+                        <li><strong>Display Name:</strong> Change how your name appears</li>
+                        <li><strong>Email Address:</strong> Update your contact email</li>
+                        <li><strong>Profile Picture:</strong> Upload or change your avatar</li>
+                        <li><strong>Bio:</strong> Add a short description about yourself</li>
+                    </ul>
+                    
+                    <h4>Security Settings</h4>
+                    <ul>
+                        <li><strong>Password:</strong> Change your account password</li>
+                        <li><strong>Two-Factor Auth:</strong> Enable extra security (coming soon)</li>
+                        <li><strong>Login History:</strong> View recent login activity</li>
+                        <li><strong>Connected Devices:</strong> Manage devices with access</li>
+                    </ul>
+                    
+                    <h4>Notification Settings</h4>
+                    <ul>
+                        <li><strong>Email Notifications:</strong> Control email updates</li>
+                        <li><strong>Progress Alerts:</strong> Get notified about achievements</li>
+                        <li><strong>New Content:</strong> Be informed about new topics</li>
+                        <li><strong>Community Updates:</strong> Receive platform news</li>
+                    </ul>
+                    
+                    <h4>How to Access Settings</h4>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Click Profile Icon</strong>
+                        <p>Click on your profile picture in the header.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>View Dropdown</strong>
+                        <p>The account dropdown will appear with your info.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Make Changes</strong>
+                        <p>Update any settings you want to modify.</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Save Automatically</strong>
+                        <p>Changes are saved instantly to your account.</p>
+                    </div>
+                `
+            },
+            'faq': {
+                title: 'FAQ',
+                icon: 'fa-question-circle',
+                content: `
+                    <h3>Frequently Asked Questions</h3>
+                    <p>Find answers to common questions about LearnHub.</p>
+                    
+                    <h4>General Questions</h4>
+                    <ul>
+                        <li><strong>Is LearnHub free?</strong> Yes, LearnHub is completely free to use for all learners.</li>
+                        <li><strong>Do I need to create an account?</strong> While you can browse without an account, creating one allows you to track progress and save bookmarks.</li>
+                        <li><strong>Can I access LearnHub on mobile?</strong> Yes, LearnHub is fully responsive and works on all devices.</li>
+                        <li><strong>Is there a mobile app?</strong> A mobile app is in development and will be available soon.</li>
+                    </ul>
+                    
+                    <h4>Learning & Content</h4>
+                    <ul>
+                        <li><strong>How often is content updated?</strong> We regularly add new topics and update existing content.</li>
+                        <li><strong>Can I request new topics?</strong> Yes! Use the contact form to suggest topics you'd like to see.</li>
+                        <li><strong>Are the code examples tested?</strong> All code examples are tested and verified before publishing.</li>
+                        <li><strong>Can I download content?</strong> Currently, content is available online only. Offline access is coming soon.</li>
+                    </ul>
+                    
+                    <h4>Account & Technical</h4>
+                    <ul>
+                        <li><strong>I forgot my password. What do I do?</strong> Use the "Forgot Password" link on the login page to reset it.</li>
+                        <li><strong>How do I delete my account?</strong> Contact support through the contact form to request account deletion.</li>
+                        <li><strong>Why is the page loading slowly?</strong> Check your internet connection or try clearing your browser cache.</li>
+                        <li><strong>Is my data secure?</strong> Yes, we use industry-standard security measures to protect your data.</li>
+                    </ul>
+                    
+                    <h4>Still Have Questions?</h4>
+                    <p>If you couldn't find the answer you're looking for, please contact us through the Contact section. We're here to help!</p>
+                `
+            },
+            'troubleshooting': {
+                title: 'Troubleshooting',
+                icon: 'fa-bug',
+                content: `
+                    <h3>Solve Common Issues</h3>
+                    <p>Find solutions to common technical problems you might encounter.</p>
+                    
+                    <h4>Login Issues</h4>
+                    <ul>
+                        <li><strong>Can't log in?</strong> Check your email and password. Use "Forgot Password" if needed.</li>
+                        <li><strong>Account locked?</strong> Wait 15 minutes and try again, or contact support.</li>
+                        <li><strong>Verification email not received?</strong> Check spam folder or request a new verification email.</li>
+                    </ul>
+                    
+                    <h4>Content Display Issues</h4>
+                    <ul>
+                        <li><strong>Code not displaying?</strong> Try refreshing the page or clearing browser cache.</li>
+                        <li><strong>Images not loading?</strong> Check your internet connection and disable ad blockers.</li>
+                        <li><strong>Quiz not starting?</strong> Ensure JavaScript is enabled in your browser.</li>
+                    </ul>
+                    
+                    <h4>Performance Issues</h4>
+                    <ul>
+                        <li><strong>Page loading slowly?</strong> Close other tabs, clear cache, or try a different browser.</li>
+                        <li><strong>Animations lagging?</strong> Disable animations in account settings for better performance.</li>
+                        <li><strong>Mobile issues?</strong> Try updating your browser or using the latest version.</li>
+                    </ul>
+                    
+                    <h4>Browser Compatibility</h4>
+                    <p>LearnHub works best on modern browsers:</p>
+                    <ul>
+                        <li>Google Chrome (recommended)</li>
+                        <li>Mozilla Firefox</li>
+                        <li>Microsoft Edge</li>
+                        <li>Safari</li>
+                    </ul>
+                    <p><strong>Note:</strong> Internet Explorer is not supported. Please use a modern browser.</p>
+                    
+                    <h4>Still Need Help?</h4>
+                    <p>If none of these solutions work, please contact our support team through the Contact section with details about your issue.</p>
+                `
+            },
+            'mobile-app': {
+                title: 'Mobile App',
+                icon: 'fa-mobile-alt',
+                content: `
+                    <h3>LearnHub Mobile Application</h3>
+                    <p>Take your learning anywhere with the LearnHub mobile app.</p>
+                    
+                    <h4>App Features</h4>
+                    <ul>
+                        <li><strong>Offline Access:</strong> Download content for offline learning</li>
+                        <li><strong>Push Notifications:</strong> Get reminders to study</li>
+                        <li><strong>Mobile-Optimized UI:</strong> Designed for touch and small screens</li>
+                        <li><strong>Sync Across Devices:</strong> Progress syncs with web version</li>
+                        <li><strong>Quick Actions:</strong> One-tap access to bookmarks and recent topics</li>
+                    </ul>
+                    
+                    <h4>Availability</h4>
+                    <p>The LearnHub mobile app is currently in development and will be available soon on:</p>
+                    <ul>
+                        <li><strong>iOS App Store:</strong> For iPhone and iPad users</li>
+                        <li><strong>Google Play Store:</strong> For Android users</li>
+                    </ul>
+                    
+                    <h4>What to Expect</h4>
+                    <ul>
+                        <li>Full access to all courses and topics</li>
+                        <li>Interactive quizzes optimized for mobile</li>
+                        <li>Code examples with syntax highlighting</li>
+                        <li>Progress tracking and statistics</li>
+                        <li>Dark mode support</li>
+                        <li>Bookmark management</li>
+                    </ul>
+                    
+                    <h4>Stay Updated</h4>
+                    <p>To be notified when the app launches:</p>
+                    <ul>
+                        <li>Follow us on social media</li>
+                        <li>Subscribe to our newsletter</li>
+                        <li>Check the website for announcements</li>
+                    </ul>
+                    
+                    <h4>In the Meantime</h4>
+                    <p>While waiting for the app, you can:</p>
+                    <ul>
+                        <li>Use LearnHub on your mobile browser (fully responsive)</li>
+                        <li>Add the website to your home screen for quick access</li>
+                        <li>Enable dark mode for better mobile viewing</li>
+                    </ul>
+                `
+            }
+        };
+
+        // Open Documentation Modal
+        function openDocModal(docId) {
+            const modal = document.getElementById('docModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+            
+            const doc = docContent[docId];
+            if (doc) {
+                modalTitle.innerHTML = `<i class="fas ${doc.icon}"></i> ${doc.title}`;
+                modalContent.innerHTML = doc.content;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // Close Documentation Modal
+        function closeDocModal() {
+            const modal = document.getElementById('docModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('docModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeDocModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeDocModal();
+            }
+        });
+
+        // Show Section Function
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.about-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all nav buttons
+            const navButtons = document.querySelectorAll('.about-nav-btn');
+            navButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.closest('.about-nav-btn').classList.add('active');
+        }
+
+        // Go Back Function
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        // Submit Contact Form
+        function submitContactForm(event) {
+            event.preventDefault();
+            
+            // Show success message
+            const form = event.target;
+            const button = form.querySelector('button');
+            const originalText = button.innerHTML;
+            
+            button.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+            button.style.background = 'var(--success-color)';
+            
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.style.background = 'var(--accent-color)';
+                form.reset();
+            }, 3000);
+        }
+
+        // Apply dark mode from localStorage
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+</body>
+</html>

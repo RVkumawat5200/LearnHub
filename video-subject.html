@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Lectures - LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .video-subject-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 20px 40px;
+            animation: fadeIn 0.6s ease;
+        }
+
+        /* Subject Header */
+        .subject-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: var(--bg-color);
+            border-radius: 20px;
+            box-shadow: 
+                8px 8px 15px var(--shadow-dark),
+                -8px -8px 15px var(--shadow-light);
+            animation: slideDown 0.6s ease;
+        }
+
+        .subject-icon-large {
+            width: 120px;
+            height: 120px;
+            background: var(--bg-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: var(--accent-color);
+            box-shadow: 
+                8px 8px 15px var(--shadow-dark),
+                -8px -8px 15px var(--shadow-light);
+            flex-shrink: 0;
+        }
+
+        .subject-info {
+            flex: 1;
+        }
+
+        .subject-info h1 {
+            font-size: 32px;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .subject-info p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .subject-stats {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .stat-item i {
+            color: var(--accent-color);
+        }
+
+        /* Video Player Section */
+        .video-player-section {
+            margin-bottom: 40px;
+            animation: slideUp 0.6s ease;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 
+                10px 10px 20px var(--shadow-dark),
+                -10px -10px 20px var(--shadow-light);
+            background: var(--bg-color);
+            margin-bottom: 20px;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .video-title {
+            font-size: 20px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .video-title i {
+            color: var(--accent-color);
+        }
+
+        .video-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 12px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 
+                3px 3px 6px var(--shadow-dark),
+                -3px -3px 6px var(--shadow-light);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            color: var(--accent-color);
+        }
+
+        .action-btn.primary {
+            background: var(--accent-color);
+            color: white;
+            box-shadow: 0 5px 15px rgba(77, 182, 201, 0.4);
+        }
+
+        .action-btn.primary:hover {
+            background: var(--accent-hover);
+        }
+
+        /* Playlist Section */
+        .playlist-section {
+            animation: slideUp 0.6s ease;
+        }
+
+        .playlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--shadow-dark);
+        }
+
+        .playlist-header h2 {
+            font-size: 24px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .playlist-header h2 i {
+            color: var(--accent-color);
+        }
+
+        .playlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .playlist-card {
+            background: var(--bg-color);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 
+                5px 5px 10px var(--shadow-dark),
+                -5px -5px 10px var(--shadow-light);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .playlist-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                8px 8px 15px var(--shadow-dark),
+                -8px -8px 15px var(--shadow-light);
+        }
+
+        .playlist-card.active {
+            border: 2px solid var(--accent-color);
+        }
+
+        .playlist-thumbnail {
+            position: relative;
+            padding-bottom: 56.25%;
+            background: var(--bg-color);
+        }
+
+        .playlist-thumbnail img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(77, 182, 201, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .playlist-card:hover .play-icon {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .duration {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .playlist-info {
+            padding: 15px;
+        }
+
+        .playlist-info h3 {
+            font-size: 16px;
+            color: var(--text-color);
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .playlist-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .subject-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 25px;
+            }
+
+            .subject-icon-large {
+                width: 100px;
+                height: 100px;
+                font-size: 50px;
+            }
+
+            .subject-info h1 {
+                font-size: 26px;
+            }
+
+            .subject-stats {
+                justify-content: center;
+            }
+
+            .video-info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .playlist-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-subject-container {
+                padding: 80px 15px 30px;
+            }
+
+            .subject-info h1 {
+                font-size: 22px;
+            }
+
+            .playlist-info h3 {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    
+    <header class="header">
+        <div class="header-content">
+            <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;" title="Click to go to Home">
+                <div class="logo-circle"><i class="fas fa-book"></i></div>
+                <h1>LearnHub</h1>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search videos..." onkeyup="searchPlaylist()">
+                <button class="search-btn" onclick="searchPlaylist()">🔍</button>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="#" class="nav-link" onclick="window.location.href='index.html'"><i class="fas fa-home"></i> Home</a>
+                <a href="#" class="nav-link" onclick="window.location.href='quizzes.html'"><i class="fas fa-puzzle-piece"></i> Quizzes</a>
+                <a href="#" class="nav-link active" onclick="window.location.href='video-lectures.html'"><i class="fas fa-video"></i> Video Lectures</a>
+                <a href="#" class="nav-link" onclick="window.location.href='about.html'"><i class="fas fa-info-circle"></i> About</a>
+            </nav>
+
+            
+            <div class="user-profile" onclick="toggleAccountDropdown()">
+                <div class="profile-circle" id="headerProfileCircle">👤</div>
+                
+            </div>
+            
+        </div>
+        
+    </header>
+
+    <!-- Video Subject Container -->
+     
+    <div class="video-subject-container" id="videoSubjectContainer">
+        <!-- Content will be loaded dynamically -->
+           
+    </div>
+
+    <script>
+        
+        // Subject Data with YouTube Videos
+        const subjectData = {
+            'html': {
+                title: 'HTML',
+                icon: 'fab fa-html5',
+                color: '#E34F26',
+                description: 'Learn the foundation of web development with comprehensive HTML tutorials. Master structure, elements, forms, semantic HTML, and best practices for building modern websites.',
+                videos: 25,
+                duration: '12+ Hours',
+                level: 'Beginner',
+                currentVideo: 0,
+                playlist: [
+                    {
+                        title: 'HTML Introduction & Setup',
+                        duration: '15:30',
+                        thumbnail: 'https://img.youtube.com/vi/UB1O30fR-EE/maxresdefault.jpg',
+                        videoId: 'UB1O30fR-EE'
+                    },
+                    {
+                        title: 'HTML Basic Structure & Elements',
+                        duration: '20:45',
+                        thumbnail: 'https://img.youtube.com/vi/UB1O30fR-EE/maxresdefault.jpg',
+                        videoId: 'UB1O30fR-EE'
+                    },
+                    {
+                        title: 'HTML Text Formatting & Headings',
+                        duration: '18:20',
+                        thumbnail: 'https://img.youtube.com/vi/UB1O30fR-EE/maxresdefault.jpg',
+                        videoId: 'UB1O30fR-EE'
+                    },
+                    {
+                        title: 'HTML Links & Images',
+                        duration: '22:15',
+                        thumbnail: 'https://img.youtube.com/vi/UB1O30fR-EE/maxresdefault.jpg',
+                        videoId: 'UB1O30fR-EE'
+                    },
+                    {
+                        title: 'HTML Forms & Input Elements',
+                        duration: '35:40',
+                        thumbnail: 'https://img.youtube.com/vi/UB1O30fR-EE/maxresdefault.jpg',
+                        videoId: 'UB1O30fR-EE'
+                    },
+                    {
+                        title: 'HTML Semantic Elements',
+                        duration: '25:30',
+                        thumbnail: 'https://img.youtube.com/vi/UB1O30fR-EE/maxresdefault.jpg',
+                        videoId: 'UB1O30fR-EE'
+                    },
+                    {
+                        title: 'HTML Tables & Lists',
+                        duration: '28:45',
+                        thumbnail: 'https://img.youtube.com/vi/UB1O30fR-EE/maxresdefault.jpg',
+                        videoId: 'UB1O30fR-EE'
+                    },
+                    {
+                        title: 'HTML5 New Features',
+                        duration: '30:20',
+                        thumbnail: 'https://img.youtube.com/vi/UB1O30fR-EE/maxresdefault.jpg',
+                        videoId: 'UB1O30fR-EE'
+                    }
+                ]
+            },
+            'css': {
+                title: 'CSS',
+                icon: 'fab fa-css3-alt',
+                color: '#1572B6',
+                description: 'Master styling and layout techniques with CSS tutorials. Learn selectors, box model, flexbox, grid, animations, and responsive design.',
+                videos: 30,
+                duration: '15+ Hours',
+                level: 'Beginner',
+                currentVideo: 0,
+                playlist: [
+                    {
+                        title: 'CSS Introduction & Syntax',
+                        duration: '18:30',
+                        thumbnail: 'https://img.youtube.com/vi/yfoY53QXEnI/maxresdefault.jpg',
+                        videoId: 'yfoY53QXEnI'
+                    },
+                    {
+                        title: 'CSS Selectors & Specificity',
+                        duration: '25:15',
+                        thumbnail: 'https://img.youtube.com/vi/yfoY53QXEnI/maxresdefault.jpg',
+                        videoId: 'yfoY53QXEnI'
+                    },
+                    {
+                        title: 'CSS Box Model & Display',
+                        duration: '30:40',
+                        thumbnail: 'https://img.youtube.com/vi/yfoY53QXEnI/maxresdefault.jpg',
+                        videoId: 'yfoY53QXEnI'
+                    },
+                    {
+                        title: 'CSS Flexbox Complete Guide',
+                        duration: '45:30',
+                        thumbnail: 'https://img.youtube.com/vi/yfoY53QXEnI/maxresdefault.jpg',
+                        videoId: 'yfoY53QXEnI'
+                    },
+                    {
+                        title: 'CSS Grid Layout',
+                        duration: '40:20',
+                        thumbnail: 'https://img.youtube.com/vi/yfoY53QXEnI/maxresdefault.jpg',
+                        videoId: 'yfoY53QXEnI'
+                    },
+                    {
+                        title: 'CSS Animations & Transitions',
+                        duration: '35:45',
+                        thumbnail: 'https://img.youtube.com/vi/yfoY53QXEnI/maxresdefault.jpg',
+                        videoId: 'yfoY53QXEnI'
+                    },
+                    {
+                        title: 'Responsive CSS Design',
+                        duration: '38:30',
+                        thumbnail: 'https://img.youtube.com/vi/yfoY53QXEnI/maxresdefault.jpg',
+                        videoId: 'yfoY53QXEnI'
+                    },
+                    {
+                        title: 'CSS Best Practices',
+                        duration: '28:15',
+                        thumbnail: 'https://img.youtube.com/vi/yfoY53QXEnI/maxresdefault.jpg',
+                        videoId: 'yfoY53QXEnI'
+                    }
+                ]
+            },
+            'javascript': {
+                title: 'JavaScript',
+                icon: 'fab fa-js-square',
+                color: '#F7DF1E',
+                description: 'Build interactive websites with JavaScript programming. Learn variables, functions, DOM manipulation, events, and ES6+ features.',
+                videos: 40,
+                duration: '20+ Hours',
+                level: 'Intermediate',
+                currentVideo: 0,
+                playlist: [
+                    {
+                        title: 'JavaScript Fundamentals',
+                        duration: '25:30',
+                        thumbnail: 'https://img.youtube.com/vi/W6NZfCO5SIk/maxresdefault.jpg',
+                        videoId: 'W6NZfCO5SIk'
+                    },
+                    {
+                        title: 'JavaScript Variables & Data Types',
+                        duration: '22:15',
+                        thumbnail: 'https://img.youtube.com/vi/W6NZfCO5SIk/maxresdefault.jpg',
+                        videoId: 'W6NZfCO5SIk'
+                    },
+                    {
+                        title: 'JavaScript Functions',
+                        duration: '30:45',
+                        thumbnail: 'https://img.youtube.com/vi/W6NZfCO5SIk/maxresdefault.jpg',
+                        videoId: 'W6NZfCO5SIk'
+                    },
+                    {
+                        title: 'DOM Manipulation',
+                        duration: '35:20',
+                        thumbnail: 'https://img.youtube.com/vi/W6NZfCO5SIk/maxresdefault.jpg',
+                        videoId: 'W6NZfCO5SIk'
+                    },
+                    {
+                        title: 'JavaScript Events',
+                        duration: '28:40',
+                        thumbnail: 'https://img.youtube.com/vi/W6NZfCO5SIk/maxresdefault.jpg',
+                        videoId: 'W6NZfCO5SIk'
+                    },
+                    {
+                        title: 'ES6+ Features',
+                        duration: '42:30',
+                        thumbnail: 'https://img.youtube.com/vi/W6NZfCO5SIk/maxresdefault.jpg',
+                        videoId: 'W6NZfCO5SIk'
+                    },
+                    {
+                        title: 'Async JavaScript (Promises & Async/Await)',
+                        duration: '38:15',
+                        thumbnail: 'https://img.youtube.com/vi/W6NZfCO5SIk/maxresdefault.jpg',
+                        videoId: 'W6NZfCO5SIk'
+                    },
+                    {
+                        title: 'JavaScript Project Build',
+                        duration: '55:40',
+                        thumbnail: 'https://img.youtube.com/vi/W6NZfCO5SIk/maxresdefault.jpg',
+                        videoId: 'W6NZfCO5SIk'
+                    }
+                ]
+            },
+            'python': {
+                title: 'Python',
+                icon: 'fab fa-python',
+                color: '#3776AB',
+                description: 'Learn Python programming from basics to advanced concepts. Cover data types, functions, OOP, libraries, and real-world applications.',
+                videos: 35,
+                duration: '18+ Hours',
+                level: 'Beginner',
+                currentVideo: 0,
+                playlist: [
+                    {
+                        title: 'Python Introduction & Setup',
+                        duration: '20:30',
+                        thumbnail: 'https://img.youtube.com/vi/_uQrJ0TkZlc/maxresdefault.jpg',
+                        videoId: '_uQrJ0TkZlc'
+                    },
+                    {
+                        title: 'Python Basics & Syntax',
+                        duration: '28:45',
+                        thumbnail: 'https://img.youtube.com/vi/_uQrJ0TkZlc/maxresdefault.jpg',
+                        videoId: '_uQrJ0TkZlc'
+                    },
+                    {
+                        title: 'Python Data Structures',
+                        duration: '35:20',
+                        thumbnail: 'https://img.youtube.com/vi/_uQrJ0TkZlc/maxresdefault.jpg',
+                        videoId: '_uQrJ0TkZlc'
+                    },
+                    {
+                        title: 'Python Functions',
+                        duration: '30:15',
+                        thumbnail: 'https://img.youtube.com/vi/_uQrJ0TkZlc/maxresdefault.jpg',
+                        videoId: '_uQrJ0TkZlc'
+                    },
+                    {
+                        title: 'Object-Oriented Python',
+                        duration: '45:30',
+                        thumbnail: 'https://img.youtube.com/vi/_uQrJ0TkZlc/maxresdefault.jpg',
+                        videoId: '_uQrJ0TkZlc'
+                    },
+                    {
+                        title: 'Python Libraries & Modules',
+                        duration: '38:40',
+                        thumbnail: 'https://img.youtube.com/vi/_uQrJ0TkZlc/maxresdefault.jpg',
+                        videoId: '_uQrJ0TkZlc'
+                    },
+                    {
+                        title: 'File Handling in Python',
+                        duration: '25:30',
+                        thumbnail: 'https://img.youtube.com/vi/_uQrJ0TkZlc/maxresdefault.jpg',
+                        videoId: '_uQrJ0TkZlc'
+                    },
+                    {
+                        title: 'Python Real-World Projects',
+                        duration: '52:15',
+                        thumbnail: 'https://img.youtube.com/vi/_uQrJ0TkZlc/maxresdefault.jpg',
+                        videoId: '_uQrJ0TkZlc'
+                    }
+                ]
+            },
+            'java': {
+                title: 'Java',
+                icon: 'fab fa-java',
+                color: '#ED8B00',
+                description: 'Master object-oriented programming with Java. Learn classes, inheritance, polymorphism, collections, and building applications.',
+                videos: 28,
+                duration: '14+ Hours',
+                level: 'Intermediate',
+                currentVideo: 0,
+                playlist: [
+                    {
+                        title: 'Java Introduction & Setup',
+                        duration: '18:30',
+                        thumbnail: 'https://img.youtube.com/vi/Ae6X8zL6-qc/maxresdefault.jpg',
+                        videoId: 'Ae6X8zL6-qc'
+                    },
+                    {
+                        title: 'Java Basics & Syntax',
+                        duration: '25:20',
+                        thumbnail: 'https://img.youtube.com/vi/Ae6X8zL6-qc/maxresdefault.jpg',
+                        videoId: 'Ae6X8zL6-qc'
+                    },
+                    {
+                        title: 'Java OOP Concepts',
+                        duration: '38:45',
+                        thumbnail: 'https://img.youtube.com/vi/Ae6X8zL6-qc/maxresdefault.jpg',
+                        videoId: 'Ae6X8zL6-qc'
+                    },
+                    {
+                        title: 'Java Collections Framework',
+                        duration: '35:30',
+                        thumbnail: 'https://img.youtube.com/vi/Ae6X8zL6-qc/maxresdefault.jpg',
+                        videoId: 'Ae6X8zL6-qc'
+                    },
+                    {
+                        title: 'Exception Handling',
+                        duration: '28:15',
+                        thumbnail: 'https://img.youtube.com/vi/Ae6X8zL6-qc/maxresdefault.jpg',
+                        videoId: 'Ae6X8zL6-qc'
+                    },
+                    {
+                        title: 'Java Multithreading',
+                        duration: '32:40',
+                        thumbnail: 'https://img.youtube.com/vi/Ae6X8zL6-qc/maxresdefault.jpg',
+                        videoId: 'Ae6X8zL6-qc'
+                    },
+                    {
+                        title: 'Java JDBC & Database',
+                        duration: '40:20',
+                        thumbnail: 'https://img.youtube.com/vi/Ae6X8zL6-qc/maxresdefault.jpg',
+                        videoId: 'Ae6X8zL6-qc'
+                    },
+                    {
+                        title: 'Java Project Development',
+                        duration: '48:30',
+                        thumbnail: 'https://img.youtube.com/vi/Ae6X8zL6-qc/maxresdefault.jpg',
+                        videoId: 'Ae6X8zL6-qc'
+                    }
+                ]
+            },
+            'machine-learning': {
+                title: 'Machine Learning',
+                icon: 'fas fa-robot',
+                color: '#FF6F00',
+                description: 'Learn ML algorithms and practical implementations. Cover supervised/unsupervised learning, regression, classification, and neural networks.',
+                videos: 35,
+                duration: '18+ Hours',
+                level: 'Advanced',
+                currentVideo: 0,
+                playlist: [
+                    {
+                        title: 'ML Introduction & Overview',
+                        duration: '22:30',
+                        thumbnail: 'https://img.youtube.com/vi/GwIo3gDZCVQ/maxresdefault.jpg',
+                        videoId: 'GwIo3gDZCVQ'
+                    },
+                    {
+                        title: 'Linear Regression',
+                        duration: '30:45',
+                        thumbnail: 'https://img.youtube.com/vi/GwIo3gDZCVQ/maxresdefault.jpg',
+                        videoId: 'GwIo3gDZCVQ'
+                    },
+                    {
+                        title: 'Logistic Regression',
+                        duration: '28:20',
+                        thumbnail: 'https://img.youtube.com/vi/GwIo3gDZCVQ/maxresdefault.jpg',
+                        videoId: 'GwIo3gDZCVQ'
+                    },
+                    {
+                        title: 'Decision Trees & Random Forest',
+                        duration: '35:30',
+                        thumbnail: 'https://img.youtube.com/vi/GwIo3gDZCVQ/maxresdefault.jpg',
+                        videoId: 'GwIo3gDZCVQ'
+                    },
+                    {
+                        title: 'Support Vector Machines',
+                        duration: '32:15',
+                        thumbnail: 'https://img.youtube.com/vi/GwIo3gDZCVQ/maxresdefault.jpg',
+                        videoId: 'GwIo3gDZCVQ'
+                    },
+                    {
+                        title: 'K-Means Clustering',
+                        duration: '25:40',
+                        thumbnail: 'https://img.youtube.com/vi/GwIo3gDZCVQ/maxresdefault.jpg',
+                        videoId: 'GwIo3gDZCVQ'
+                    },
+                    {
+                        title: 'Neural Networks Basics',
+                        duration: '38:30',
+                        thumbnail: 'https://img.youtube.com/vi/GwIo3gDZCVQ/maxresdefault.jpg',
+                        videoId: 'GwIo3gDZCVQ'
+                    },
+                    {
+                        title: 'ML Project Implementation',
+                        duration: '52:45',
+                        thumbnail: 'https://img.youtube.com/vi/GwIo3gDZCVQ/maxresdefault.jpg',
+                        videoId: 'GwIo3gDZCVQ'
+                    }
+                ]
+            },
+            'dsa': {
+                title: 'Data Structures',
+                icon: 'fas fa-sitemap',
+                color: '#00BCD4',
+                description: 'Learn essential data structures and algorithms. Master arrays, linked lists, trees, graphs, and efficient problem-solving.',
+                videos: 40,
+                duration: '20+ Hours',
+                level: 'Intermediate',
+                currentVideo: 0,
+                playlist: [
+                    {
+                        title: 'Introduction to Data Structures',
+                        duration: '20:30',
+                        thumbnail: 'https://img.youtube.com/vi/0IAPZzGSbME/maxresdefault.jpg',
+                        videoId: '0IAPZzGSbME'
+                    },
+                    {
+                        title: 'Arrays & Linked Lists',
+                        duration: '35:45',
+                        thumbnail: 'https://img.youtube.com/vi/0IAPZzGSbME/maxresdefault.jpg',
+                        videoId: '0IAPZzGSbME'
+                    },
+                    {
+                        title: 'Stacks & Queues',
+                        duration: '28:30',
+                        thumbnail: 'https://img.youtube.com/vi/0IAPZzGSbME/maxresdefault.jpg',
+                        videoId: '0IAPZzGSbME'
+                    },
+                    {
+                        title: 'Trees & Binary Search Trees',
+                        duration: '42:15',
+                        thumbnail: 'https://img.youtube.com/vi/0IAPZzGSbME/maxresdefault.jpg',
+                        videoId: '0IAPZzGSbME'
+                    },
+                    {
+                        title: 'Heaps & Priority Queues',
+                        duration: '30:20',
+                        thumbnail: 'https://img.youtube.com/vi/0IAPZzGSbME/maxresdefault.jpg',
+                        videoId: '0IAPZzGSbME'
+                    },
+                    {
+                        title: 'Graphs & Traversal Algorithms',
+                        duration: '45:30',
+                        thumbnail: 'https://img.youtube.com/vi/0IAPZzGSbME/maxresdefault.jpg',
+                        videoId: '0IAPZzGSbME'
+                    },
+                    {
+                        title: 'Hash Tables & Hashing',
+                        duration: '32:45',
+                        thumbnail: 'https://img.youtube.com/vi/0IAPZzGSbME/maxresdefault.jpg',
+                        videoId: '0IAPZzGSbME'
+                    },
+                    {
+                        title: 'Advanced Data Structures',
+                        duration: '38:20',
+                        thumbnail: 'https://img.youtube.com/vi/0IAPZzGSbME/maxresdefault.jpg',
+                        videoId: '0IAPZzGSbME'
+                    }
+                ]
+            },
+            'web-development': {
+                title: 'Full Stack Web Development',
+                icon: 'fas fa-laptop-code',
+                color: '#4CAF50',
+                description: 'Complete web development course from frontend to backend. Learn HTML, CSS, JavaScript, Node.js, databases, and deployment.',
+                videos: 50,
+                duration: '25+ Hours',
+                level: 'Intermediate',
+                currentVideo: 0,
+                playlist: [
+                    {
+                        title: 'Web Development Overview',
+                        duration: '25:30',
+                        thumbnail: 'https://img.youtube.com/vi/hu-q2zYwEYs/maxresdefault.jpg',
+                        videoId: 'hu-q2zYwEYs'
+                    },
+                    {
+                        title: 'HTML & CSS Fundamentals',
+                        duration: '45:20',
+                        thumbnail: 'https://img.youtube.com/vi/hu-q2zYwEYs/maxresdefault.jpg',
+                        videoId: 'hu-q2zYwEYs'
+                    },
+                    {
+                        title: 'JavaScript Mastery',
+                        duration: '52:45',
+                        thumbnail: 'https://img.youtube.com/vi/hu-q2zYwEYs/maxresdefault.jpg',
+                        videoId: 'hu-q2zYwEYs'
+                    },
+                    {
+                        title: 'React.js Frontend',
+                        duration: '58:30',
+                        thumbnail: 'https://img.youtube.com/vi/hu-q2zYwEYs/maxresdefault.jpg',
+                        videoId: 'hu-q2zYwEYs'
+                    },
+                    {
+                        title: 'Node.js Backend',
+                        duration: '48:15',
+                        thumbnail: 'https://img.youtube.com/vi/hu-q2zYwEYs/maxresdefault.jpg',
+                        videoId: 'hu-q2zYwEYs'
+                    },
+                    {
+                        title: 'MongoDB Database',
+                        duration: '35:40',
+                        thumbnail: 'https://img.youtube.com/vi/hu-q2zYwEYs/maxresdefault.jpg',
+                        videoId: 'hu-q2zYwEYs'
+                    },
+                    {
+                        title: 'REST APIs & Authentication',
+                        duration: '42:30',
+                        thumbnail: 'https://img.youtube.com/vi/hu-q2zYwEYs/maxresdefault.jpg',
+                        videoId: 'hu-q2zYwEYs'
+                    },
+                    {
+                        title: 'Deployment & DevOps',
+                        duration: '38:45',
+                        thumbnail: 'https://img.youtube.com/vi/hu-q2zYwEYs/maxresdefault.jpg',
+                        videoId: 'hu-q2zYwEYs'
+                    }
+                ]
+            }
+        };
+
+        // Load subject data from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const subjectId = urlParams.get('subject') || 'html';
+        const subject = subjectData[subjectId] || subjectData['html'];
+
+        // Render subject page
+        function renderSubjectPage() {
+            const container = document.getElementById('videoSubjectContainer');
+            
+            container.innerHTML = `
+                <!-- Subject Header -->
+                   <button class="back-btn" onclick="window.location='video-lectures.html'">← Back </button>
+                     </div>
+                     </div>
+                     </div>
+                <div class="subject-header">
+                    <div class="subject-icon-large" style="color: ${subject.color}">
+                        <i class="${subject.icon}"></i>
+                    </div>
+                    <div class="subject-info">
+                        <h1>${subject.title} Video Lectures</h1>
+                        <p>${subject.description}</p>
+                        <div class="subject-stats">
+                            <span class="stat-item"><i class="fas fa-play-circle"></i> ${subject.videos} Videos</span>
+                            <span class="stat-item"><i class="fas fa-clock"></i> ${subject.duration}</span>
+                            <span class="stat-item"><i class="fas fa-signal"></i> ${subject.level}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Player Section -->
+                <div class="video-player-section">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/${subject.playlist[subject.currentVideo].videoId}" 
+                            title="${subject.playlist[subject.currentVideo].title}"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h2 class="video-title">
+                            <i class="fas fa-play-circle"></i>
+                            ${subject.playlist[subject.currentVideo].title}
+                        </h2>
+                        <div class="video-actions">
+                            <button class="action-btn" onclick="shareVideo()">
+                                <i class="fas fa-share"></i> Share
+                            </button>
+                            <button class="action-btn primary" onclick="addToPlaylist()">
+                                <i class="fas fa-plus"></i> Add to Playlist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Playlist Section -->
+                <div class="playlist-section">
+                    <div class="playlist-header">
+                        <h2><i class="fas fa-list"></i> All Lectures</h2>
+                    </div>
+                    <div class="playlist-grid" id="playlistGrid">
+                        ${subject.playlist.map((video, index) => `
+                            <div class="playlist-card ${index === subject.currentVideo ? 'active' : ''}" 
+                                 onclick="playVideo(${index})">
+                                <div class="playlist-thumbnail">
+                                    <img src="${video.thumbnail}" alt="${video.title}" 
+                                         onerror="this.src='https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg'">
+                                    <div class="play-icon"><i class="fas fa-play"></i></div>
+                                    <span class="duration">${video.duration}</span>
+                                </div>
+                                <div class="playlist-info">
+                                    <h3>${index + 1}. ${video.title}</h3>
+                                    <div class="playlist-meta">
+                                        <span><i class="fas fa-clock"></i> ${video.duration}</span>
+                                        <span>Lecture ${index + 1}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Update page title
+            document.title = `${subject.title} Video Lectures - LearnHub`;
+        }
+
+        // Play specific video
+        function playVideo(index) {
+            subject.currentVideo = index;
+            renderSubjectPage();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Search function
+        function searchPlaylist() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.playlist-card');
+            
+            cards.forEach((card, index) => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                if (title.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Share video
+        function shareVideo() {
+            const videoId = subject.playlist[subject.currentVideo].videoId;
+            const shareUrl = window.location.href.split('?')[0] + '?subject=' + subjectId + '&video=' + subject.currentVideo;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: subject.playlist[subject.currentVideo].title,
+                    text: 'Check out this video on LearnHub!',
+                    url: shareUrl
+                });
+            } else {
+                navigator.clipboard.writeText(shareUrl);
+                alert('Link copied to clipboard!');
+            }
+        }
+
+        // Add to playlist
+        function addToPlaylist() {
+            const savedPlaylists = JSON.parse(localStorage.getItem('learnhub_playlists') || '[]');
+            const videoToSave = subject.playlist[subject.currentVideo];
+            
+            if (!savedPlaylists.some(v => v.videoId === videoToSave.videoId)) {
+                savedPlaylists.push(videoToSave);
+                localStorage.setItem('learnhub_playlists', JSON.stringify(savedPlaylists));
+                alert('Video added to your playlist!');
+            } else {
+                alert('This video is already in your playlist!');
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderSubjectPage();
+            
+            // Apply dark mode
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quizzes - LearnHub</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ===== GRID FIX ===== */
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* 4 cards in one row */
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .topic-card {
+      width: 100%;
+    }
+
+    /* ===== TOPIC BUTTONS ===== */
+    .topic-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .topic-list .link-btn {
+      background: var(--card-bg);
+      border: none;
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      color: var(--text-color);
+      box-shadow:
+        4px 4px 8px var(--shadow-dark),
+       -4px -4px 8px var(--shadow-light);
+      transition: all 0.3s ease;
+    }
+
+    .topic-list .link-btn:hover {
+      transform: translateY(-3px);
+      background: var(--accent-color);
+      color: #fff;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1200px) {
+      .topics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 7000px) {
+      .topics-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .quiz-header {
+  display: flex;
+  align-items: center;
+  gap: 850px;   /* button aur title ke beech gap */
+}
+
+  </style>
+</head>
+
+
+ 
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo" onclick="window.location.href='about.html'" style="cursor: pointer;" title="Click to learn more about LearnHub">
+                <div class="logo-circle"><i class="fas fa-book"></i></div>
+                <h1>LearnHub</h1>
+            </div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search Quiz by Array, Stack, DSA..." onkeyup="searchCodeLibrary()">
+                <button class="search-btn" onclick="searchCodeLibrary()">🔍</button>
+            </div>
+          
+            <div class="user-profile" onclick="toggleAccountDropdown()">
+                <div class="profile-circle" id="headerProfileCircle">👤</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="code-library-container">
+        <!-- Back Button & Title -->
+     <div class="library-header quiz-header">
+  <button class="back-btn" onclick="window.location='index.html'">← Back to Home</button>
+  <h1><i class="fas fa-puzzle-piece"></i> Online Quizzes</h1>
+</div>
+
+
+  <p style="padding:0 24px;color:var(--text-secondary);">
+    Click any topic — the quiz will open in a new tab.  
+  </p>
+
+  <div class="topics-grid">
+
+    <!-- DSA -->
+    <div class="topic-card" id="card-dsa">
+      <div class="topic-icon"><i class="fas fa-sitemap"></i></div>
+      <h4>📘 DSA (Data Structures & Algorithms)</h4>
+      <p>Arrays, Linked List, Stack, Queue, Trees, Graphs.</p>
+      <div class="topic-list">
+        <button class="link-btn" data-key="dsa_arrays" onclick="openTopic(this.dataset.key)">Arrays</button>
+        <button class="link-btn" data-key="dsa_linkedlist" onclick="openTopic(this.dataset.key)">Linked List</button>
+        <button class="link-btn" data-key="dsa_stack" onclick="openTopic(this.dataset.key)">Stack</button>
+        <button class="link-btn" data-key="dsa_queue" onclick="openTopic(this.dataset.key)">Queue</button>
+        <button class="link-btn" data-key="dsa_trees" onclick="openTopic(this.dataset.key)">Trees</button>
+        <button class="link-btn" data-key="dsa_graphs" onclick="openTopic(this.dataset.key)">Graphs</button>
+        <button class="link-btn" data-key="dsa_heap" onclick="openTopic(this.dataset.key)">Heap</button>
+        <button class="link-btn" data-key="dsa_hashing" onclick="openTopic(this.dataset.key)">Hashing</button>
+      </div>
+    </div>
+
+    <!-- Python -->
+    <div class="topic-card" id="card-python">
+      <div class="topic-icon"><i class="fab fa-python"></i></div>
+      <h4>🐍 Python — MCQ Practice</h4>
+      <p>Variables, Control Flow, Lists, Functions, OOP.</p>
+      <div class="topic-list">
+        <button class="link-btn" data-key="py_variables" onclick="openTopic(this.dataset.key)">Variables</button>
+        <button class="link-btn" data-key="py_control" onclick="openTopic(this.dataset.key)">Control Flow</button>
+        <button class="link-btn" data-key="py_lists" onclick="openTopic(this.dataset.key)">Lists & Tuples</button>
+        <button class="link-btn" data-key="py_functions" onclick="openTopic(this.dataset.key)">Functions</button>
+        <button class="link-btn" data-key="py_oop" onclick="openTopic(this.dataset.key)">OOP</button>
+      </div>
+    </div>
+
+    <!-- C -->
+    <div class="topic-card" id="card-c">
+      <div class="topic-icon"><i class="fas fa-copyright"></i></div>
+      <h4>💻 C Language — Topic MCQs</h4>
+      <p>Arrays, Pointers, Strings, Structures.</p>
+      <div class="topic-list">
+        <button class="link-btn" data-key="c_arrays" onclick="openTopic(this.dataset.key)">Arrays</button>
+        <button class="link-btn" data-key="c_pointers" onclick="openTopic(this.dataset.key)">Pointers</button>
+        <button class="link-btn" data-key="c_strings" onclick="openTopic(this.dataset.key)">Strings</button>
+        <button class="link-btn" data-key="c_structures" onclick="openTopic(this.dataset.key)">Structures & Unions</button>
+      </div>
+    </div>
+
+    <!-- C++ -->
+    <div class="topic-card" id="card-cpp">
+      <div class="topic-icon"><i class="fab fa-cuttlefish"></i></div>
+      <h4>💻 C++ — MCQ Practice</h4>
+      <p>Basics, Arrays, Pointers, OOP.</p>
+      <div class="topic-list">
+        <button class="link-btn" data-key="cpp_basics" onclick="openTopic(this.dataset.key)">Basics</button>
+        <button class="link-btn" data-key="cpp_arrays" onclick="openTopic(this.dataset.key)">Arrays & Pointers</button>
+        <button class="link-btn" data-key="cpp_oop" onclick="openTopic(this.dataset.key)">OOP & Functions</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+</main>
+
+<script src="quizzes.js"></script>
+</body>
+</html>

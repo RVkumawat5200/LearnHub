@@ -1,0 +1,182 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Library - LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <style>
+        .code-header {
+  display: flex;
+  align-items: center;
+  gap: 850px;   /* button aur title ke beech ka space */
+}
+
+    </style>
+</head>
+<body> 
+
+    <!-- Account Dropdown -->
+    <div class="account-dropdown" id="accountDropdown">
+        <div class="dropdown-header">
+            <div class="user-avatar" id="userAvatar">👤</div>
+            <div class="user-info">
+                <h4 id="userName">Guest User</h4>
+                <p id="userEmail">guest@example.com</p>
+            </div>
+        </div>
+        <div class="dropdown-divider"></div>
+        <div class="dropdown-section">
+            <h5><i class="fas fa-palette"></i> Appearance</h5>
+            <div class="setting-item">
+                <span>Dark Mode</span>
+                <label class="switch">
+                    <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+        <div class="dropdown-divider"></div>
+        <div class="dropdown-section">
+            <h5><i class="fas fa-film"></i> Animations</h5>
+            <div class="setting-item">
+                <span>Animation Style</span>
+                <select id="animationSelect" onchange="changeAnimation()">
+                    <option value="fade">Fade</option>
+                    <option value="slide">Slide</option>
+                    <option value="pop">Pop</option>
+                    <option value="none">None</option>
+                </select>
+            </div>
+            <div class="setting-item">
+                <span>Animation Speed</span>
+                <input type="range" id="animationSpeed" min="0.1" max="2" step="0.1" value="0.5" onchange="changeAnimationSpeed()">
+            </div>
+        </div>
+        <div class="dropdown-divider"></div>
+        <div class="dropdown-section">
+            <h5><i class="fas fa-chart-bar"></i> Progress</h5>
+            <div class="user-stats">
+                <div class="stat">
+                    <span class="stat-value" id="topicsCompleted">0</span>
+                    <span class="stat-label">Topics</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="streakDays">0</span>
+                    <span class="stat-label">Day Streak</span>
+                </div>
+            </div>
+        </div>
+        <div class="dropdown-divider"></div>
+        <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo" onclick="window.location.href='about.html'" style="cursor: pointer;" title="Click to learn more about LearnHub">
+                <div class="logo-circle"><i class="fas fa-book"></i></div>
+                <h1>LearnHub</h1>
+            </div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search codes by name, language, or topic..." onkeyup="searchCodeLibrary()">
+                <button class="search-btn" onclick="searchCodeLibrary()">🔍</button>
+            </div>
+          
+            </nav>
+            <div class="user-profile" onclick="toggleAccountDropdown()">
+                <div class="profile-circle" id="headerProfileCircle">👤</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="code-library-container">
+        <!-- Back Button & Title -->
+<div class="library-header code-header">
+    <button class="back-btn" onclick="goBackHome()">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </button>
+    <h1><i class="fas fa-code"></i> Code Library</h1>
+</div>
+
+
+        <!-- Language Tabs Bar -->
+        <div class="language-tabs">
+            <div class="tabs-scroll">
+                <button class="language-tab active" onclick="filterByLanguage('all')" data-language="all">
+                    <i class="fas fa-list"></i> All Languages
+                </button>
+                <!-- LANGUAGE TABS WILL BE GENERATED HERE - each language gets a tab -->
+                <div id="languageTabsContainer"></div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="library-content">
+            <!-- Code Examples Grid -->
+            <div class="code-examples-grid" id="codeExamplesGrid">
+                <!-- Code cards will be generated here -->
+            </div>
+
+            <!-- No Results Message -->
+            <div class="no-results" id="noResults" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>No codes found</h3>
+                <p>Try searching with different keywords or select a different language</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Display Modal -->
+    <div class="code-modal" id="codeModal">
+        <div class="code-modal-content">
+            <div class="modal-header">
+                <h2 id="modalCodeTitle">Code Example</h2>
+                <button class="close-modal" onclick="closeCodeModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="code-display">
+                    <div class="code-language-info">
+                        <span id="codeLanguageLabel" style="font-weight: bold; color: #666;">Language: JavaScript</span>
+                    </div>
+                    <h3>Code:</h3>
+                    <pre><code id="modalCode" class="language-javascript"></code></pre>
+                    <div class="modal-buttons">
+                        <button class="copy-btn" onclick="copyModalCode()"><i class="fas fa-copy"></i> Copy Code</button>
+                        <button class="try-btn" onclick="tryCodeInEditor()" id="tryBtn"><i class="fas fa-play"></i> Try in Editor</button>
+                    </div>
+                </div>
+                <div class="output-display">
+                    <h3>Output/Description:</h3>
+                    <div id="modalOutput" class="output-box"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="code_library.js"></script>
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-c.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-csharp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-php.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-go.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-rust.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-kotlin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-swift.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-html.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-sql.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-r.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Language - LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header class="site-header small">
+      <div class="container header-inner">
+        <a href="about.html" class="brand" title="Click to learn more about LearnHub">LearnHub</a>
+        <div id="langName" class="lang-title"></div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="language-controls">
+        <div id="buttons" class="segmented">
+          <!-- Buttons inserted by JS -->
+        </div>
+      </section>
+      <section>
+        <p>Select a category to view programs.</p>
+      </section>
+    </main>
+
+    <script src="code_library.js"></script>
+    <script>
+      const params = new URLSearchParams(location.search);
+      const lang = (params.get('lang')||'').toLowerCase();
+      const displayName = lang.charAt(0).toUpperCase()+lang.slice(1);
+      document.getElementById('langName').textContent = displayName;
+
+      const categories = ['All','Basics','Advanced','Practice'];
+      const container = document.getElementById('buttons');
+      categories.forEach(cat=>{
+        const btn = document.createElement('a');
+        btn.className = 'seg-btn';
+        btn.href = `program-list.html?lang=${encodeURIComponent(lang)}&cat=${encodeURIComponent(cat.toLowerCase())}`;
+        btn.innerHTML = `${cat}`;
+        container.appendChild(btn);
+      });
+    </script>
+  </body>
+</html>

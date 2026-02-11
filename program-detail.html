@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Program - LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header class="site-header small">
+      <div class="container header-inner">
+        <a href="about.html" class="brand" title="Click to learn more about LearnHub">LearnHub</a>
+        <div id="progTitle" class="lang-title"></div>
+      </div>
+    </header>
+
+    <main class="container detail-container">
+      <article id="detail">
+        <!-- Filled by JS -->
+      </article>
+      <aside id="editorPane" class="editor-pane hidden">
+        <div class="editor-toolbar">
+          <button id="openExternal" class="btn">Open in Editor (new tab)</button>
+          <button id="closeEditor" class="btn secondary">Close</button>
+        </div>
+        <iframe id="editorFrame" class="embed-frame"></iframe>
+      </aside>
+    </main>
+
+    <script src="code_library.js"></script>
+    <script>
+      const params = new URLSearchParams(location.search);
+      const lang = (params.get('lang')||'').toLowerCase();
+      const id = params.get('id');
+      const prog = findProgram(lang,id);
+      const detail = document.getElementById('detail');
+      const pane = document.getElementById('editorPane');
+
+      if(!prog){
+        detail.innerHTML = '<p>Program not found.</p>';
+      } else {
+        document.getElementById('progTitle').textContent = prog.title;
+        detail.innerHTML = `
+          <h2>${prog.title}</h2>
+          <p class="pc-short">${prog.short}</p>
+          <div class="pc-meta"><span class="tag">${prog.difficulty}</span></div>
+          <section class="problem">
+            <h3>Problem Statement</h3>
+            <p>${prog.problem}</p>
+          </section>
+          <section class="code-section">
+            <div class="code-actions">
+              <button id="tryBtn" class="btn primary">Try it Yourself</button>
+              <button id="copyBtn" class="btn">Copy Code</button>
+            </div>
+            <pre class="code-block"><code id="codeBlock">${escapeHtml(prog.code)}</code></pre>
+          </section>
+          <section class="output">
+            <h3>Output Example</h3>
+            <pre>${escapeHtml(prog.output)}</pre>
+          </section>
+          <section class="explain">
+            <h3>Step-by-step Explanation</h3>
+            <p>${prog.explanation}</p>
+          </section>
+        `;
+
+        document.getElementById('copyBtn').addEventListener('click', ()=>{
+          navigator.clipboard.writeText(prog.code).then(()=> alert('Code copied to clipboard'));
+        });
+
+        document.getElementById('tryBtn').addEventListener('click', ()=>{
+          // Try to embed trusted online editor in iframe, fall back to opening new tab with code param
+          const editorUrl = buildEditorURL(lang, prog.code);
+          const frame = document.getElementById('editorFrame');
+          frame.src = editorUrl;
+          pane.classList.remove('hidden');
+        });
+
+        document.getElementById('closeEditor').addEventListener('click', ()=> pane.classList.add('hidden'));
+        document.getElementById('openExternal').addEventListener('click', ()=>{
+          const url = buildEditorURL(lang, prog.code, true);
+          window.open(url, '_blank');
+        });
+      }
+
+      function escapeHtml(s){
+        return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      }
+
+      function buildEditorURL(lang, code, forNewTab=false){
+        // Map language to online compiler URL
+        const encoded = encodeURIComponent(code);
+        
+        const compilers = {
+          'python': 'https://www.programiz.com/python-programming/online-compiler/',
+          'java': 'https://www.programiz.com/java-programming/online-compiler/',
+          'c': 'https://www.programiz.com/c-programming/online-compiler/',
+          'cpp': 'https://www.programiz.com/cpp-programming/online-compiler/',
+          'csharp': 'https://www.geeksforgeeks.org/csharp-programming-language/',
+          'php': 'https://www.geeksforgeeks.org/php-programming-language/',
+          'go': 'https://www.geeksforgeeks.org/golang/',
+          'rust': 'https://www.geeksforgeeks.org/rust-programming-language/',
+          'kotlin': 'https://www.geeksforgeeks.org/kotlin-programming-language/',
+          'swift': 'https://www.geeksforgeeks.org/swift-programming-language/',
+          'r': 'https://www.geeksforgeeks.org/r-programming-language/',
+          'sql': 'https://www.geeksforgeeks.org/sql/',
+          'html': 'https://codepen.io/pen/',
+          'css': 'https://codepen.io/pen/',
+          'javascript': 'https://codepen.io/pen/'
+        };
+        
+        return compilers[lang] || 'https://www.programiz.com';
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Programs - LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header class="site-header small">
+      <div class="container header-inner">
+        <a href="about.html" class="brand" title="Click to learn more about LearnHub">LearnHub</a>
+        <div id="langTitle" class="lang-title"></div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="program-grid" id="grid">
+        <!-- Program cards inserted here -->
+      </section>
+    </main>
+
+    <script src="code_library.js"></script>
+    <script>
+      const params = new URLSearchParams(location.search);
+      const lang = (params.get('lang')||'').toLowerCase();
+      const cat = (params.get('cat')||'all').toLowerCase();
+      document.getElementById('langTitle').textContent = `${lang.charAt(0).toUpperCase()+lang.slice(1)} — ${cat}`;
+
+      const programs = getPrograms(lang);
+      const grid = document.getElementById('grid');
+
+      function matchesCategory(p){
+        if(cat==='all') return true;
+        if(cat==='basics' || cat==='basic') return p.difficulty.toLowerCase().includes('basic');
+        if(cat==='advanced') return p.difficulty.toLowerCase().includes('advanced');
+        if(cat==='practice') return p.difficulty.toLowerCase().includes('practice');
+        return true;
+      }
+
+      if(programs.length===0){
+        grid.innerHTML = '<p>No programs found for this language.</p>';
+      } else {
+        programs.filter(matchesCategory).forEach(p=>{
+          const card = document.createElement('article');
+          card.className = 'program-card';
+          card.innerHTML = `
+            <h4 class="pc-title">${p.title}</h4>
+            <p class="pc-short">${p.short}</p>
+            <div class="pc-meta"><span class="tag">${p.difficulty}</span></div>
+            `;
+          card.addEventListener('click', ()=> location.href = `program-detail.html?lang=${encodeURIComponent(lang)}&id=${encodeURIComponent(p.id)}`);
+          grid.appendChild(card);
+        });
+      }
+    </script>
+  </body>
+</html>

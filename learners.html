@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Learners Experience - LearnHub</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* ===== LEARNERS PAGE ===== */
+.learners-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+}
+
+.learners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+    padding: 20px;
+}
+
+.learner-card {
+    background: var(--card-bg);
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 8px 8px 16px var(--shadow-dark),
+               -8px -8px 16px var(--shadow-light);
+    transition: 0.3s;
+}
+
+.learner-card:hover {
+    transform: translateY(-6px);
+}
+
+.learner-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: inset 3px 3px 6px var(--shadow-dark),
+                inset -3px -3px 6px var(--shadow-light);
+}
+
+.learner-top {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.rating {
+    color: #f5b400;
+    font-size: 14px;
+}
+
+.role {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.feedback {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+ 
+ 
+
+.learners-header {
+  display: flex;
+  align-items: center;
+  gap: 850px;
+  padding: 20px 24px;
+
+  margin-top: 90px;   /* 🔥 header ke niche lane ke liye */
+}
+
+</style>
+</head>
+
+<body>
+
+   <!-- TITLE -->
+<div class="learners-header">
+  <button class="back-btn" onclick="window.location='index.html'">
+    <i class="fas fa-arrow-left"></i> Back to Home
+  </button>
+  <h1>💬 Our Learners</h1>
+</div>
+
+   <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo" onclick="window.location.href='about.html'" style="cursor: pointer;" title="Click to learn more about LearnHub">
+                <div class="logo-circle"><i class="fas fa-book"></i></div>
+                <h1>LearnHub</h1>
+            </div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search learners by name or skill..." onkeyup="searchCodeLibrary()">
+                <button class="search-btn" onclick="searchCodeLibrary()">🔍</button>
+            </div>
+          
+            <div class="user-profile" onclick="toggleAccountDropdown()">
+                <div class="profile-circle" id="headerProfileCircle">👤</div>
+            </div>
+        </div>
+    </header>
+
+ 
+
+ 
+<p style="padding:0 20px;color:var(--text-secondary)">
+ <u><b> Real students, developers & professionals sharing their experience.</b></u>
+</p>
+
+<!-- LEARNERS -->
+ 
+
+    <div class="learners-grid">
+
+  <div class="learner-card">
+    <img src="https://i.pravatar.cc/150?img=1" alt="Aman Sharma">
+    <h4>Aman Sharma</h4>
+    <span>CS Student</span>
+    <div class="rating">★★★★★</div>
+    <p>LearnHub helped me understand DSA in a very simple way.</p>
+  </div>
+
+  <div class="learner-card">
+    <img src="https://i.pravatar.cc/150?img=2" alt="Ritika Verma">
+    <h4>Ritika Verma</h4>
+    <span>Frontend Developer</span>
+    <div class="rating">★★★★★</div>
+    <p>Clean UI, amazing notes and fast revision before interviews.</p>
+  </div>
+
+  <div class="learner-card">
+    <img src="https://i.pravatar.cc/150?img=3" alt="Mohit Jain">
+    <h4>Mohit Jain</h4>
+    <span>Working Professional</span>
+    <div class="rating">★★★★☆</div>
+    <p>After office, LearnHub is my go-to place for practice.</p>
+  </div>
+
+  <div class="learner-card">
+    <img src="https://i.pravatar.cc/150?img=4" alt="Neha Singh">
+    <h4>Neha Singh</h4>
+    <span>BCA Student</span>
+    <div class="rating">★★★★★</div>
+    <p>Python MCQs helped me crack my semester exams.</p>
+  </div>
+
+  <div class="learner-card">
+    <img src="https://i.pravatar.cc/150?img=5" alt="Rahul Meena">
+    <h4>Rahul Meena</h4>
+    <span>Java Developer</span>
+    <div class="rating">★★★★★</div>
+    <p>Code library is very useful for interview prep.</p>
+  </div>
+
+  <div class="learner-card">
+    <img src="https://i.pravatar.cc/150?img=6" alt="Pooja Kumari">
+    <h4>Pooja Kumari</h4>
+    <span>MCA Student</span>
+    <div class="rating">★★★★☆</div>
+    <p>Simple explanations with real examples.</p>
+  </div>
+
+  <div class="learner-card">
+    <img src="https://i.pravatar.cc/150?img=7" alt="Arjun Patel">
+    <h4>Arjun Patel</h4>
+    <span>Backend Intern</span>
+    <div class="rating">★★★★★</div>
+    <p>DSA + quizzes combo is 🔥.</p>
+  </div>
+
+  <div class="learner-card">
+    <img src="https://i.pravatar.cc/150?img=8" alt="Sneha Joshi">
+    <h4>Sneha Joshi</h4>
+    <span>IT Student</span>
+    <div class="rating">★★★★★</div>
+    <p>Notes are short and very easy to revise.</p>
+  </div>
+
+  <div class="learner-card">
+    <img src="https://i.pravatar.cc/150?img=9" alt="Kunal Gupta">
+    <h4>Kunal Gupta</h4>
+    <span>Software Engineer</span>
+    <div class="rating">★★★★☆</div>
+    <p>Best platform for quick learning.</p>
+  </div>
+
+  <div class="learner-card">
+    <img src="https://i.pravatar.cc/150?img=10" alt="Anjali Rao">
+    <h4>Anjali Rao</h4>
+    <span>UI Designer</span>
+    <div class="rating">★★★★★</div>
+    <p>Design and content both are top notch.</p>
+  </div>
+
+  <!-- 11–20 -->
+  <div class="learner-card"><img src="https://i.pravatar.cc/150?img=11"><h4>Vikas Yadav</h4><span>ECE Student</span><div class="rating">★★★★★</div><p>Networking quizzes helped a lot.</p></div>
+  <div class="learner-card"><img src="https://i.pravatar.cc/150?img=12"><h4>Kriti Malhotra</h4><span>Full Stack Intern</span><div class="rating">★★★★★</div><p>Everything is well structured.</p></div>
+  <div class="learner-card"><img src="https://i.pravatar.cc/150?img=13"><h4>Rohit Das</h4><span>B.Tech Student</span><div class="rating">★★★★☆</div><p>Perfect for last-day revision.</p></div>
+  <div class="learner-card"><img src="https://i.pravatar.cc/150?img=14"><h4>Nisha Kapoor</h4><span>QA Engineer</span><div class="rating">★★★★★</div><p>MCQs are very relevant.</p></div>
+  <div class="learner-card"><img src="https://i.pravatar.cc/150?img=15"><h4>Saurabh Mishra</h4><span>Fresher</span><div class="rating">★★★★★</div><p>Helped me gain confidence.</p></div>
+  <div class="learner-card"><img src="https://i.pravatar.cc/150?img=16"><h4>Mehul Jain</h4><span>Android Developer</span><div class="rating">★★★★☆</div><p>Clean UI & great UX.</p></div>
+  <div class="learner-card"><img src="https://i.pravatar.cc/150?img=17"><h4>Simran Kaur</h4><span>College Student</span><div class="rating">★★★★★</div><p>Very beginner friendly.</p></div>
+  <div class="learner-card"><img src="https://i.pravatar.cc/150?img=18"><h4>Aditya Verma</h4><span>Data Analyst</span><div class="rating">★★★★★</div><p>DSA section is excellent.</p></div>
+  <div class="learner-card"><img src="https://i.pravatar.cc/150?img=19"><h4>Pallavi Shah</h4><span>MBA Student</span><div class="rating">★★★★☆</div><p>Helpful for logic building.</p></div>
+  <div class="learner-card"><img src="https://i.pravatar.cc/150?img=20"><h4>Harshit Bansal</h4><span>Startup Founder</span><div class="rating">★★★★★</div><p>Highly recommended platform.</p></div>
+
+</div>
+
+  </div>
+ 
+
+  <script>
+   
+function searchCodeLibrary() {
+    let input = document.getElementById("searchInput").value.toLowerCase();
+    let cards = document.querySelectorAll(".learner-card");
+
+    cards.forEach(card => {
+        let text = card.innerText.toLowerCase();
+
+        if (text.includes(input)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
+ 
+
+  </script>
+</body>
+</html>
